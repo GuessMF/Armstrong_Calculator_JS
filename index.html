@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400&display=swap"
+      rel="stylesheet"
+    />
+    <title>Armstrong Calculator</title>
+  </head>
+  <body>
+    <div class="containerMain">
+      <div class="header">
+        <input id="width" type="text" placeholder="Ширина в метрах" />
+        <br />
+        <input id="height" type="text" placeholder="Длина в метрах" />
+        <br />
+        <button id="calculate">Расчитать</button>
+        <br />
+        <button id="centred">Отцентровать</button>
+      </div>
+      <div class="cost">
+        <table class="testTab">
+          <tr>
+            <td>Площадь комнаты</td>
+            <td id="ploshad"></td>
+          </tr>
+          <tr>
+            <td>Периметр комнаты</td>
+            <td id="perimetr"></td>
+          </tr>
+          <tr>
+            <td>Количество блоков</td>
+            <td id="blocks"></td>
+          </tr>
+          <tr>
+            <td>Размер блока</td>
+            <td id="oneBlock"></td>
+          </tr>
+          <tr>
+            <td>Размер блока А</td>
+            <td id="razmA"></td>
+          </tr>
+          <tr>
+            <td>Размер блока В</td>
+            <td id="razmB"></td>
+          </tr>
+          <tr>
+            <td>Размер блока С</td>
+            <td id="razmC"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <canvas id="canvas"></canvas>
+    <script src="index.js"></script>
+  </body>
+</html>
