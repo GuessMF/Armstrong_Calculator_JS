@@ -52,3 +52,8 @@ table {
   margin-left: 20px;
   background-color: #b1c6d6;
 }
+@media screen and (max-width: 420px) {
+  body {
+    background-color: blue;
+  }
+}
