@@ -1,6 +1,22 @@
+html {
+  height: 100%;
+}
+/* body{
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+
+} */
+
 body {
   background-color: #b1c6d6;
   font-family: "Poppins", sans-serif;
+
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+
+  touch-action: manipulation;
 }
 input {
   width: 150px;
@@ -52,8 +68,26 @@ table {
   margin-left: 20px;
   background-color: #b1c6d6;
 }
+
+.footer {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.githubLogo {
+  width: 50px;
+  height: 50px;
+}
 @media screen and (max-width: 420px) {
   body {
-    background-color: blue;
+    /* background-color: blue; */
+  }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  select:focus,
+  textarea:focus,
+  input:focus {
+    font-size: 16px;
   }
 }
