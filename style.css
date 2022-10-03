@@ -59,7 +59,7 @@ table {
 .canv {
   display: block;
   margin: 2% auto;
-  border: rgb(0, 0, 0) solid 2px;
+  border: rgb(0, 0, 0) solid 1px;
   image-rendering: pixelated;
 }
 
@@ -67,6 +67,22 @@ table {
   margin-top: 2%;
   margin-left: 20px;
   background-color: #b1c6d6;
+}
+.littleBlocks {
+  width: auto;
+  height: auto;
+  /* display: flex; */
+
+  padding-left: 30%;
+  border: black 1px solid;
+}
+
+.testing {
+  display: block;
+  /* margin: 2% auto; */
+  /* border: rgb(0, 0, 0) solid 1px; */
+  image-rendering: pixelated;
+  margin-bottom: 3%;
 }
 
 .footer {

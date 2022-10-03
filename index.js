@@ -55,6 +55,9 @@ centred.addEventListener("click", () => {
   }
 });
 
+razmA;
+razmB;
+razmC;
 // минимум нарезки
 function canvasDraw(width, height) {
   canvas = document.getElementById("canvas");
@@ -120,6 +123,7 @@ function canvasDraw(width, height) {
   }
 }
 //выравненные
+
 function canvasDrawCentred(width, height) {
   canvas = document.getElementById("canvas");
   canvas.classList = "canv";
@@ -179,4 +183,50 @@ function canvasDrawCentred(width, height) {
   ctx.fillText("a", kraiVert / 2 - 5, kraiHor);
   ctx.fillText("b", kraiVert + 25, kraiHor);
   ctx.fillText("c", kraiVert / 2 - 5, kraiHor + 60);
+  littleBlockA(
+    `${(kraiHor / 100).toFixed(2)}`,
+    `${(kraiVert / 100).toFixed(2)}`
+  );
+  littleBlockB(`${(kraiHor / 100).toFixed(2)}`, 0.6);
+  littleBlockC(0.6, `${(kraiVert / 100).toFixed(2)}`);
+}
+
+test.addEventListener("click", () => {
+  littleBlockA();
+});
+function littleBlockA(visota, shirina) {
+  block = document.getElementById("blockA");
+  block.classList = "testing";
+  clientWidth = shirina * 100;
+  clientHeight = visota * 100;
+  block.width = clientWidth;
+  block.height = clientHeight;
+  let ctx = block.getContext("2d");
+  ctx.lineWidth = 1;
+  ctx.fillStyle = "#f8f8f8";
+  ctx.fillRect(0, 0, clientWidth, clientHeight);
+}
+function littleBlockB(visota, shirina) {
+  block = document.getElementById("blockB");
+  block.classList = "testing";
+  clientWidth = shirina * 100;
+  clientHeight = visota * 100;
+  block.width = clientWidth;
+  block.height = clientHeight;
+  let ctx = block.getContext("2d");
+  ctx.lineWidth = 1;
+  ctx.fillStyle = "#f8f8f8";
+  ctx.fillRect(0, 0, clientWidth, clientHeight);
+}
+function littleBlockC(visota, shirina) {
+  block = document.getElementById("blockC");
+  block.classList = "testing";
+  clientWidth = shirina * 100;
+  clientHeight = visota * 100;
+  block.width = clientWidth;
+  block.height = clientHeight;
+  let ctx = block.getContext("2d");
+  ctx.lineWidth = 1;
+  ctx.fillStyle = "#f8f8f8";
+  ctx.fillRect(0, 0, clientWidth, clientHeight);
 }
