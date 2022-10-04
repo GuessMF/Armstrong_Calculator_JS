@@ -74,30 +74,43 @@ table {
   background-color: #b1c6d6;
 }
 .littleBlocks {
-  width: 70px;
+  width: 100px;
   height: auto;
   /* display: flex; */
 
   /* padding-left: 30%; */
   border: black 1px solid;
 }
+span {
+  border: black 1px solid;
+  width: 100px;
+  height: 100px;
+}
 /* #blockC {
   width: 60px;
   height: auto;
 } */
 .lb {
-  display: table-column;
-  margin-top: 30px;
-  vertical-align: bottom;
+  /* display: table-column; */
+  margin-top: 20px;
+  /* vertical-align: bottom; */
   width: 60px;
   border: black 1px solid;
+  text-align: center;
+}
+.oneone {
+  border: black 1px solid;
+  width: 100px;
+  height: 60px;
+  padding-top: 20px;
 }
 .testing {
-  display: block;
+  /* display: block; */
   /* margin: 2% auto; */
+
   border: rgb(0, 0, 0) solid 1px;
   image-rendering: pixelated;
-  margin-top: 20px;
+  /* margin-top: 20px; */
 }
 
 .footer {
