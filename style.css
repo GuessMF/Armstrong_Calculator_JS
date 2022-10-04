@@ -7,7 +7,11 @@ html {
   grid-template-rows: auto 1fr auto;
 
 } */
-
+canvas {
+  height: auto;
+  width: auto;
+  /* border: black 1px solid; */
+}
 body {
   background-color: #b1c6d6;
   font-family: "Poppins", sans-serif;
@@ -44,6 +48,7 @@ button {
 }
 .cost {
   width: 400px;
+  /* border: black 1px solid; */
 }
 table {
   /* border: black solid 1px; */
@@ -69,20 +74,30 @@ table {
   background-color: #b1c6d6;
 }
 .littleBlocks {
-  width: auto;
+  width: 70px;
   height: auto;
   /* display: flex; */
 
-  padding-left: 30%;
+  /* padding-left: 30%; */
   border: black 1px solid;
 }
-
+/* #blockC {
+  width: 60px;
+  height: auto;
+} */
+.lb {
+  display: table-column;
+  margin-top: 30px;
+  vertical-align: bottom;
+  width: 60px;
+  border: black 1px solid;
+}
 .testing {
   display: block;
   /* margin: 2% auto; */
-  /* border: rgb(0, 0, 0) solid 1px; */
+  border: rgb(0, 0, 0) solid 1px;
   image-rendering: pixelated;
-  margin-bottom: 3%;
+  margin-top: 20px;
 }
 
 .footer {
