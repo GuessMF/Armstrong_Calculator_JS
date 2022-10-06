@@ -28,7 +28,7 @@ calculate.addEventListener("click", () => {
     razmB;
     razmC;
 
-    canvasDraw(width.value, height.value, line.value);
+    canvasDraw(width.value, height.value, line.value / 10);
   }
 });
 centred.addEventListener("click", () => {
@@ -51,7 +51,7 @@ centred.addEventListener("click", () => {
     razmB;
     razmC;
 
-    canvasDrawCentred(width.value, height.value, line.value);
+    canvasDrawCentred(width.value, height.value, line.value / 100);
   }
 });
 
@@ -102,6 +102,8 @@ function canvasDraw(width, height, line) {
 
   console.log(line / 200);
   console.log(blockHeight);
+
+  newLine = line / 200;
   //отрисовка А если обе стороны больше 0
   if (blockHeight > 0 && blockWidth > 0) {
     ctx.fillText("a", hor + centHor, clientHeight - 1);
@@ -118,7 +120,8 @@ function canvasDraw(width, height, line) {
   if (blockWidth > 0) {
     ctx.fillText("b", hor + centHor, ver - 1);
     razmB.innerHTML = "0.6m x " + blockWidth + "m";
-    littleBlockB(0.6 - line / 200, blockWidth - line / 200);
+    littleBlockB(0.6 - newLine / 0.6, blockWidth - newLine / 0.6);
+
     lbB.style.display = "inline";
   } else {
     razmB.innerHTML = "0";
