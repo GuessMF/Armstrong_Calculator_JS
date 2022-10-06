@@ -20,6 +20,8 @@
         <br />
         <input id="height" type="text" placeholder="Длина в метрах" />
         <br />
+        <input id="line" type="text" placeholder="Ширина шва" />
+        <br />
         <button id="calculate">Расчитать</button>
         <br />
         <button id="centred">Отцентровать</button>
@@ -60,11 +62,20 @@
         </table>
       </div>
       <div class="littleBlocks">
-        <div class="oneone">a<canvas class="lb" id="blockA"></canvas></div>
-        <br />
-        <span>b<canvas class="lb" id="blockB"></canvas></span>
-        <br />
-        <span>c<canvas class="lb" id="blockC"></canvas></span>
+        <div class="divA">
+          <div class="letterA">A:</div>
+          <canvas class="lb" id="blockA"></canvas>
+        </div>
+        <!-- <br /> -->
+        <div class="divB">
+          <div class="letterB">B:</div>
+          <canvas class="lb" id="blockB"></canvas>
+        </div>
+        <!-- <br /> -->
+        <div class="divC">
+          <div class="letterC">C:</div>
+          <canvas class="lb" id="blockC"></canvas>
+        </div>
       </div>
     </div>
     <canvas id="canvas"></canvas>

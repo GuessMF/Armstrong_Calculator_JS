@@ -28,7 +28,7 @@ calculate.addEventListener("click", () => {
     razmB;
     razmC;
 
-    canvasDraw(width.value, height.value);
+    canvasDraw(width.value, height.value, line.value);
   }
 });
 centred.addEventListener("click", () => {
@@ -51,7 +51,7 @@ centred.addEventListener("click", () => {
     razmB;
     razmC;
 
-    canvasDrawCentred(width.value, height.value);
+    canvasDrawCentred(width.value, height.value, line.value);
   }
 });
 
@@ -59,7 +59,12 @@ razmA;
 razmB;
 razmC;
 // минимум нарезки
-function canvasDraw(width, height) {
+function canvasDraw(width, height, line) {
+  littleBlocksView = document.querySelector(".littleBlocks");
+  littleBlocksView.style.display = "grid";
+  lbA = document.querySelector(".divA");
+  lbB = document.querySelector(".divB");
+  lbC = document.querySelector(".divC");
   canvas = document.getElementById("canvas");
   canvas.classList = "canv";
   clientWidth = width * 100;
@@ -67,10 +72,12 @@ function canvasDraw(width, height) {
   canvas.width = clientWidth;
   canvas.height = clientHeight;
 
+  canvas.style.border = "black solid " + `${line}` + "px";
+
   let ctx = canvas.getContext("2d");
   ctx.fillStyle = "#f8f8f8";
   ctx.strokeStyle = "black";
-
+  ctx.lineWidth = line;
   for (i = 0; i < Math.trunc(width / 0.6); i++) {
     for (n = 0; n < Math.trunc(height / 0.6); n++) {
       ver = 60 + 0.5 + n * 60; // шаг между вертикальными линиями
@@ -92,39 +99,55 @@ function canvasDraw(width, height) {
   blockHeight = `${((clientHeight - ver) / 100).toFixed(2)}`;
   blockWidth = `${((clientWidth - hor) / 100).toFixed(2)}`;
   maxHeight = clientHeight - 1;
+
+  console.log(line / 200);
+  console.log(blockHeight);
   //отрисовка А если обе стороны больше 0
   if (blockHeight > 0 && blockWidth > 0) {
     ctx.fillText("a", hor + centHor, clientHeight - 1);
     razmA.innerHTML = blockHeight + "m x " + blockWidth + "m";
-    littleBlockA(blockHeight, blockWidth);
+    littleBlockA(blockHeight - line / 200, blockWidth - line / 200);
+    lbA.style.display = "inline";
   } else {
     razmA.innerHTML = "0";
-    !littleBlockA(blockHeight, blockWidth);
+    !littleBlockA(blockHeight - line / 200, blockWidth - line / 200);
+    lbA.style.display = "none";
   }
 
   //отрисовка В если его ширина больше 0
   if (blockWidth > 0) {
     ctx.fillText("b", hor + centHor, ver - 1);
     razmB.innerHTML = "0.6m x " + blockWidth + "m";
-    littleBlockB(0.6, blockWidth);
+    littleBlockB(0.6 - line / 200, blockWidth - line / 200);
+    lbB.style.display = "inline";
   } else {
     razmB.innerHTML = "0";
-    !littleBlockB(0.6, blockWidth);
+    !littleBlockB(0.6 - line / 200, blockWidth - line / 200);
+    lbB.style.display = "none";
   }
 
   //отрисовка С если его высота больше 0
   if (blockHeight > 0) {
     ctx.fillText("c", hor - 30, maxHeight);
     razmC.innerHTML = blockHeight + "m x 0.6m";
-    littleBlockC(blockHeight, 0.6);
+    littleBlockC(blockHeight - line / 200, 0.6 - line / 200);
+    lbC.style.display = "inline";
   } else {
     razmC.innerHTML = "0";
-    !littleBlockC(blockHeight, 0.6);
+    !littleBlockC(blockHeight - line / 200, 0.6 - line / 200);
+    lbC.style.display = "none";
   }
 }
 //выравненные
 
-function canvasDrawCentred(width, height) {
+function canvasDrawCentred(width, height, line) {
+  littleBlocksView = document.querySelector(".littleBlocks");
+
+  lbA = document.querySelector(".divA");
+  lbB = document.querySelector(".divB");
+  lbC = document.querySelector(".divC");
+
+  littleBlocksView.style.display = "grid";
   canvas = document.getElementById("canvas");
   canvas.classList = "canv";
   clientWidth = width * 100;
@@ -135,6 +158,7 @@ function canvasDrawCentred(width, height) {
   let ctx = canvas.getContext("2d");
   ctx.fillStyle = "#f8f8f8";
   ctx.strokeStyle = "black";
+  ctx.lineWidth = line;
 
   shirLast = 60 + 0.5 + (Math.trunc(width / 0.6) - 1) * 60;
   visotLast = 60 + 0.5 + (Math.trunc(height / 0.6) - 1) * 60;
@@ -161,20 +185,26 @@ function canvasDrawCentred(width, height) {
       "m  x " +
       `${(kraiVert / 100).toFixed(2)}` +
       "m";
+    lbA.style.display = "inline";
   } else {
     razmA.innerHTML = "0";
+    lbA.style.display = "none";
   }
   //блок В если равен нулю то не показывать в таблице
   if ((kraiHor / 100).toFixed(2) > 0) {
     razmB.innerHTML = `${(kraiHor / 100).toFixed(2)}` + "m  x  0.6m";
+    lbB.style.display = "inline";
   } else {
     razmB.innerHTML = "0";
+    lbB.style.display = "none";
   }
   //блок С если равен нулю то не показывать в таблице
   if ((kraiVert / 100).toFixed(2) > 0) {
     razmC.innerHTML = "0.6m x " + `${(kraiVert / 100).toFixed(2)}` + "m";
+    lbC.style.display = "inline";
   } else {
     razmC.innerHTML = "0";
+    lbC.style.display = "none";
   }
 
   ctx.fillStyle = "red";
@@ -185,10 +215,11 @@ function canvasDrawCentred(width, height) {
   ctx.fillText("c", kraiVert / 2 - 5, kraiHor + 60);
   littleBlockA(
     `${(kraiHor / 100).toFixed(2)}`,
-    `${(kraiVert / 100).toFixed(2)}`
+    `${(kraiVert / 100).toFixed(2)}`,
+    line
   );
-  littleBlockB(`${(kraiHor / 100).toFixed(2)}`, 0.6);
-  littleBlockC(0.6, `${(kraiVert / 100).toFixed(2)}`);
+  littleBlockB(`${(kraiHor / 100).toFixed(2)}`, 0.6, line);
+  littleBlockC(0.6, `${(kraiVert / 100).toFixed(2)}`, line);
 }
 
 // test.addEventListener("click", () => {
@@ -197,6 +228,7 @@ function canvasDrawCentred(width, height) {
 function littleBlockA(visota, shirina) {
   block = document.getElementById("blockA");
   block.classList = "testing";
+
   clientWidth = shirina * 100;
   clientHeight = visota * 100;
   block.width = clientWidth;
@@ -208,17 +240,24 @@ function littleBlockA(visota, shirina) {
   ctx.fillStyle = "#f8f8f8";
   ctx.fillRect(0, 0, clientWidth, clientHeight);
 
-  ctx.fillStyle = "blue";
-  ctx.font = "bold 8px Arial";
-  ctx.fillText("A", centrWidth - 4, centrHeight);
+  // ctx.fillStyle = "blue";
+  // ctx.font = "bold 8px Arial";
+  // ctx.fillText("A", centrWidth - 4, centrHeight);
 }
 function littleBlockB(visota, shirina) {
   block = document.getElementById("blockB");
   block.classList = "testing";
+
   clientWidth = shirina * 100;
   clientHeight = visota * 100;
   block.width = clientWidth;
   block.height = clientHeight;
+
+  // console.log(block.width + "block width");
+  // console.log(block.height + "block height");
+  // console.log(clientWidth + "client width");
+  // console.log(line);
+
   centrWidth = clientWidth / 2;
   centrHeight = clientHeight / 2;
   let ctx = block.getContext("2d");
@@ -226,23 +265,14 @@ function littleBlockB(visota, shirina) {
   ctx.fillStyle = "#f8f8f8";
   ctx.fillRect(0, 0, clientWidth, clientHeight);
 
-  ctx.fillStyle = "blue";
-  ctx.font = "bold 8px Arial";
-  ctx.fillText("B", centrWidth - 2, centrHeight - 1);
+  // ctx.fillStyle = "blue";
+  // ctx.font = "bold 8px Arial";
+  // ctx.fillText("B", centrWidth - 2, centrHeight - 1);
 }
 function littleBlockC(visota, shirina) {
-  // let newCanv = document.createElement("canvas");
-  // newCanv.id = "blockC";
-  // newCanv.innerHTML = "yttt";
-  // document.body.insertBefore(newCanv, littleBlocks);
-
-  // let newCanv = document.createElement("canvas");
-  // let lb = document.querySelector(".littleBlockC");
-  // newCanv.id = "blockC";
-  // document.body.insertBefore(newCanv, lb);
-
   block = document.getElementById("blockC");
   block.classList = "testing";
+
   clientWidth = shirina * 100;
   clientHeight = visota * 100;
   block.width = clientWidth;
@@ -254,9 +284,9 @@ function littleBlockC(visota, shirina) {
   ctx.lineWidth = 1;
   ctx.fillStyle = "#f8f8f8";
   ctx.fillRect(0, 0, clientWidth, clientHeight);
-  ctx.fillStyle = "blue";
-  ctx.font = "bold 8px Arial";
-  ctx.fillText("C", centrWidth - 2, centrHeight - 1);
+  // ctx.fillStyle = "blue";
+  // ctx.font = "bold 8px Arial";
+  // ctx.fillText("C", centrWidth - 2, centrHeight - 1);
 }
 
 test.addEventListener("click", () => {

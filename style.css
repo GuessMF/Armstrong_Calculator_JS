@@ -73,42 +73,69 @@ table {
   margin-left: 20px;
   background-color: #b1c6d6;
 }
-.littleBlocks {
-  width: 100px;
-  height: auto;
-  /* display: flex; */
 
-  /* padding-left: 30%; */
-  border: black 1px solid;
-}
-span {
+/* span {
   border: black 1px solid;
   width: 100px;
   height: 100px;
-}
+} */
 /* #blockC {
   width: 60px;
   height: auto;
 } */
 .lb {
   /* display: table-column; */
-  margin-top: 20px;
+  /* margin-top: 20px; */
   /* vertical-align: bottom; */
-  width: 60px;
-  border: black 1px solid;
+
+  /* border: black 1px solid; */
+}
+.littleBlocks {
+  /* width: auto;
+  height: auto; */
+  /* overflow: hidden; */
+  /* border: black 1px solid; */
+  display: none;
+}
+.divA {
+  /* border: black 1px solid; */
+  float: left;
   text-align: center;
 }
-.oneone {
-  border: black 1px solid;
-  width: 100px;
-  height: 60px;
-  padding-top: 20px;
+
+.divB {
+  /* border: black 1px solid; */
+  float: left;
+  text-align: center;
+}
+.divC {
+  /* border: black 1px solid; */
+  float: left;
+  text-align: center;
+}
+.letterA {
+  /* border: black 1px solid; */
+  width: 20px;
+  height: 30px;
+  margin: 0 auto;
+}
+.letterB {
+  /* border: black 1px solid; */
+  width: 20px;
+  height: 30px;
+  margin: 0 auto;
+}
+.letterC {
+  /* border: black 1px solid; */
+  width: 20px;
+  height: 30px;
+  margin: 0 auto;
 }
 .testing {
   /* display: block; */
   /* margin: 2% auto; */
 
-  border: rgb(0, 0, 0) solid 1px;
+  /* border: rgb(0, 0, 0) solid 1px; */
   image-rendering: pixelated;
   /* margin-top: 20px; */
 }
