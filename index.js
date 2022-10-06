@@ -28,7 +28,7 @@ calculate.addEventListener("click", () => {
     razmB;
     razmC;
 
-    canvasDraw(width.value, height.value, line.value / 10);
+    canvasDraw(width.value, height.value, line.value);
   }
 });
 centred.addEventListener("click", () => {
@@ -51,7 +51,7 @@ centred.addEventListener("click", () => {
     razmB;
     razmC;
 
-    canvasDrawCentred(width.value, height.value, line.value / 100);
+    canvasDrawCentred(width.value, height.value, line.value);
   }
 });
 
@@ -73,15 +73,18 @@ function canvasDraw(width, height, line) {
   canvas.height = clientHeight;
 
   canvas.style.border = "black solid " + `${line}` + "px";
-
+  console.log("line " + line);
   let ctx = canvas.getContext("2d");
   ctx.fillStyle = "#f8f8f8";
   ctx.strokeStyle = "black";
   ctx.lineWidth = line;
+
+  llLine = 60 + Number(line);
+  console.log(llLine);
   for (i = 0; i < Math.trunc(width / 0.6); i++) {
     for (n = 0; n < Math.trunc(height / 0.6); n++) {
-      ver = 60 + 0.5 + n * 60; // шаг между вертикальными линиями
-      hor = 60 + 0.5 + i * 60; //шаг между горизонтальными линиями
+      ver = 60 + 0.5 + n * llLine; // шаг между вертикальными линиями
+      hor = 60 + 0.5 + i * llLine; //шаг между горизонтальными линиями
       ctx.fillRect(0, 0, clientWidth, clientHeight);
       ctx.moveTo(hor, 0);
       ctx.lineTo(hor, clientHeight);
@@ -100,8 +103,8 @@ function canvasDraw(width, height, line) {
   blockWidth = `${((clientWidth - hor) / 100).toFixed(2)}`;
   maxHeight = clientHeight - 1;
 
-  console.log(line / 200);
-  console.log(blockHeight);
+  // console.log(line / 200);
+  // console.log(blockHeight);
 
   newLine = line / 200;
   //отрисовка А если обе стороны больше 0
@@ -163,15 +166,25 @@ function canvasDrawCentred(width, height, line) {
   ctx.strokeStyle = "black";
   ctx.lineWidth = line;
 
-  shirLast = 60 + 0.5 + (Math.trunc(width / 0.6) - 1) * 60;
-  visotLast = 60 + 0.5 + (Math.trunc(height / 0.6) - 1) * 60;
+  llLine = 60 + Number(line);
+
+  shirLast = 60 + 0.5 + (Math.trunc(width / 0.6) - 1) * llLine;
+  visotLast = 60 + 0.5 + (Math.trunc(height / 0.6) - 1) * llLine;
   kraiVert = (clientWidth - shirLast) / 2;
   kraiHor = (clientHeight - visotLast) / 2;
 
+  console.log(kraiVert + " kraiVert");
+  console.log(kraiHor + " kraiHor");
+  console.log(shirLast + " shirLast");
+  console.log(visotLast + " visotLast");
+
   for (i = 0; i < Math.trunc(width / 0.6) + 1; i++) {
     for (n = 0; n < Math.trunc(height / 0.6) + 1; n++) {
-      ver = kraiHor + 0.75 + n * 60; // шаг между вертикальными линиями
-      hor = kraiVert + 0.75 + i * 60; //шаг между горизонтальными линиями
+      ver = kraiHor + 0.75 + n * llLine; // шаг между вертикальными линиями
+      hor = kraiVert + 0.75 + i * llLine; //шаг между горизонтальными линиями
+
+      // console.log("hor" + hor);
+      // console.log(clientWidth + "client width");
 
       ctx.fillRect(0, 0, clientWidth, clientHeight); //фон
       ctx.moveTo(hor, 0);
