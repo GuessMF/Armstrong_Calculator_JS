@@ -7,6 +7,7 @@ height.addEventListener("keyup", function () {
   this.value = this.value.replace(/[^\d.,-]/g, "").replace(/[,-]/g, ".");
 });
 
+let razmerBlokaAVisota;
 //работает если ввести больше чем 38 но грузится процессор и очень долго рендерит
 calculate.addEventListener("click", () => {
   if (width.value == "" || height.value == "") {
@@ -71,6 +72,8 @@ function canvasDraw(width, height, line) {
   clientHeight = height * 100;
   canvas.width = clientWidth;
   canvas.height = clientHeight;
+  console.log(clientWidth + "clientWidthCanvas");
+  console.log(canvas.width + "canvas.width");
 
   canvas.style.border = "black solid " + `${line}` + "px";
   console.log("line " + line);
@@ -78,6 +81,7 @@ function canvasDraw(width, height, line) {
   ctx.fillStyle = "#f8f8f8";
   ctx.strokeStyle = "black";
   ctx.lineWidth = line;
+  console.log(line + "line");
 
   llLine = 60 + Number(line);
   console.log(llLine);
@@ -99,6 +103,14 @@ function canvasDraw(width, height, line) {
 
   centHor = (clientWidth - hor) / 2; //центр кравнего блока для отцентровски буквы
   centVer = (clientHeight - ver) / 2;
+
+  console.log(centHor + "centHor");
+  console.log("melkii kysok raschet" + Number(60 + centHor));
+  shirA = Number(60 + centHor - line);
+  visotA = Number(60 + centVer - line);
+  console.log("visotaA" + centVer);
+  //visotA = Number(60 + centVer);
+
   blockHeight = `${((clientHeight - ver) / 100).toFixed(2)}`;
   blockWidth = `${((clientWidth - hor) / 100).toFixed(2)}`;
   maxHeight = clientHeight - 1;
@@ -110,14 +122,29 @@ function canvasDraw(width, height, line) {
   //отрисовка А если обе стороны больше 0
   if (blockHeight > 0 && blockWidth > 0) {
     ctx.fillText("a", hor + centHor, clientHeight - 1);
-    razmA.innerHTML = blockHeight + "m x " + blockWidth + "m";
+    razmA.innerHTML = "первое";
+    //razmA.innerHTML = blockHeight + "m x " + blockWidth + "m";
     littleBlockA(blockHeight - line / 200, blockWidth - line / 200);
     lbA.style.display = "inline";
-  } else {
-    razmA.innerHTML = "0";
-    !littleBlockA(blockHeight - line / 200, blockWidth - line / 200);
-    lbA.style.display = "none";
+    console.log("1111111111111111");
+  } else if (shirA > 60 && visotA > 60) {
+    ctx.fillText("a", hor + centHor, clientHeight - 1);
+    razmA.innerHTML = "второе";
+    // razmA.innerHTML = blockHeight + "m x " + blockWidth + "m";
+    littleBlockA(visotA, shirA);
+    lbA.style.display = "inline";
+    console.log("2222222222222222");
   }
+  // if (blockHeight > 0 && blockWidth > 0) {
+  //   ctx.fillText("a", hor + centHor, clientHeight - 1);
+  //   razmA.innerHTML = blockHeight + "m x " + blockWidth + "m";
+  //   littleBlockA(blockHeight - line / 200, blockWidth - line / 200);
+  //   lbA.style.display = "inline";
+  // } else {
+  //   razmA.innerHTML = "0";
+  //   !littleBlockA(blockHeight - line / 200, blockWidth - line / 200);
+  //   lbA.style.display = "none";
+  // }
 
   //отрисовка В если его ширина больше 0
   if (blockWidth > 0) {
@@ -143,6 +170,8 @@ function canvasDraw(width, height, line) {
     !littleBlockC(blockHeight - line / 200, 0.6 - line / 200);
     lbC.style.display = "none";
   }
+
+  littleBlockA(Number(60 + centVer), Number(60 + centHor));
 }
 //выравненные
 
@@ -173,10 +202,10 @@ function canvasDrawCentred(width, height, line) {
   kraiVert = (clientWidth - shirLast) / 2;
   kraiHor = (clientHeight - visotLast) / 2;
 
-  console.log(kraiVert + " kraiVert");
-  console.log(kraiHor + " kraiHor");
-  console.log(shirLast + " shirLast");
-  console.log(visotLast + " visotLast");
+  // console.log(kraiVert + " kraiVert");
+  // console.log(kraiHor + " kraiHor");
+  // console.log(shirLast + " shirLast");
+  // console.log(visotLast + " visotLast");
 
   for (i = 0; i < Math.trunc(width / 0.6) + 1; i++) {
     for (n = 0; n < Math.trunc(height / 0.6) + 1; n++) {
@@ -245,8 +274,8 @@ function littleBlockA(visota, shirina) {
   block = document.getElementById("blockA");
   block.classList = "testing";
 
-  clientWidth = shirina * 100;
-  clientHeight = visota * 100;
+  clientWidth = shirina;
+  clientHeight = visota;
   block.width = clientWidth;
   block.height = clientHeight;
   centrWidth = clientWidth / 2;
@@ -255,6 +284,11 @@ function littleBlockA(visota, shirina) {
   ctx.lineWidth = 1;
   ctx.fillStyle = "#f8f8f8";
   ctx.fillRect(0, 0, clientWidth, clientHeight);
+
+  console.log(clientWidth + "clientWidth");
+  console.log(clientHeight + "clientHeight");
+  console.log(block.width);
+  console.log(block.height);
 
   // ctx.fillStyle = "blue";
   // ctx.font = "bold 8px Arial";
