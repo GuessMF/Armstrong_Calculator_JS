@@ -132,9 +132,9 @@ function canvasDraw(width, height, line) {
   maxHeight = clientHeight - 1;
 
   //4и2 на 4и2 ширина линии 2 не выводит блок А хотя его размеры написаны
-
+  // gg
   // console.log(line / 200);
-  // console.log(blockHeight);
+  console.log(blockHeight);
 
   newLine = line / 200;
   //отрисовка А если обе стороны больше 0
