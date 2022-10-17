@@ -29,7 +29,7 @@ calculate.addEventListener("click", () => {
     razmB;
     razmC;
 
-    canvasDraw(width.value, height.value, line.value);
+    canvasDraw(width.value, height.value, Number(line.value));
   }
 });
 centred.addEventListener("click", () => {
@@ -72,19 +72,19 @@ function canvasDraw(width, height, line) {
   clientHeight = height * 100;
   canvas.width = clientWidth;
   canvas.height = clientHeight;
-  console.log(clientWidth + "clientWidthCanvas");
-  console.log(canvas.width + "canvas.width");
+  // console.log(clientWidth + "clientWidthCanvas");
+  //console.log(canvas.width + "canvas.width");
 
   canvas.style.border = "black solid " + `${line}` + "px";
-  console.log("line " + line);
+  //console.log("line " + line);
   let ctx = canvas.getContext("2d");
   ctx.fillStyle = "#f8f8f8";
   ctx.strokeStyle = "black";
   ctx.lineWidth = line;
-  console.log(line + "line");
+  //console.log(line + "line");
 
   llLine = 60 + Number(line);
-  console.log(llLine);
+  //console.log(llLine);
   for (i = 0; i < Math.trunc(width / 0.6); i++) {
     for (n = 0; n < Math.trunc(height / 0.6); n++) {
       ver = 60 + 0.5 + n * llLine; // шаг между вертикальными линиями
@@ -98,42 +98,61 @@ function canvasDraw(width, height, line) {
     }
   }
   //подписанные
+  // console.log("i = " + i);
+  //console.log("clientWidth = " + clientWidth);
   ctx.fillStyle = "red";
   ctx.font = "8pt Arial";
 
   centHor = (clientWidth - hor) / 2; //центр кравнего блока для отцентровски буквы
   centVer = (clientHeight - ver) / 2;
 
-  console.log(centHor + "centHor");
-  console.log("melkii kysok raschet" + Number(60 + centHor));
-  shirA = Number(60 + centHor - line);
-  visotA = Number(60 + centVer - line);
-  console.log("visotaA" + centVer);
+  //console.log(centHor + "centHor");
+  //console.log("melkii kysok raschet" + Number(60 + centHor));
+  // shirA = Number(60 + centHor - line) / 2;
+  // visotA = Number(60 + centVer - line) / 2;
+  console.log("Client Width = " + clientWidth);
+  console.log("Client Height = " + clientHeight);
+
+  shirA = clientWidth - hor - line / 2;
+  visotA = clientHeight - ver - line / 2;
+
+  console.log("Hor = " + hor);
+  console.log("Ver = " + ver);
+
+  console.log("visotaA " + visotA);
+  console.log("shirA " + shirA);
+
+  console.log("line = " + line / 2);
   //visotA = Number(60 + centVer);
 
   blockHeight = `${((clientHeight - ver) / 100).toFixed(2)}`;
   blockWidth = `${((clientWidth - hor) / 100).toFixed(2)}`;
+  console.log("Block height = " + blockHeight);
+  console.log("Block width = " + blockWidth);
   maxHeight = clientHeight - 1;
+
+  //4и2 на 4и2 ширина линии 2 не выводит блок А хотя его размеры написаны
 
   // console.log(line / 200);
   // console.log(blockHeight);
 
   newLine = line / 200;
   //отрисовка А если обе стороны больше 0
-  if (blockHeight > 0 && blockWidth > 0) {
+  if (visotA > 1 && shirA > 1) {
     ctx.fillText("a", hor + centHor, clientHeight - 1);
-    razmA.innerHTML = "первое";
-    //razmA.innerHTML = blockHeight + "m x " + blockWidth + "m";
-    littleBlockA(blockHeight - line / 200, blockWidth - line / 200);
+    //razmA.innerHTML = "первое";
+    razmA.innerHTML = blockHeight + "m x " + blockWidth + "m";
+
+    littleBlockA(visotA, shirA);
     lbA.style.display = "inline";
-    console.log("1111111111111111");
-  } else if (shirA > 60 && visotA > 60) {
+    // console.log("1");
+  } else if (visotA > 3 && shirA > 3) {
     ctx.fillText("a", hor + centHor, clientHeight - 1);
     razmA.innerHTML = "второе";
     // razmA.innerHTML = blockHeight + "m x " + blockWidth + "m";
     littleBlockA(visotA, shirA);
     lbA.style.display = "inline";
-    console.log("2222222222222222");
+    // console.log("2");
   }
   // if (blockHeight > 0 && blockWidth > 0) {
   //   ctx.fillText("a", hor + centHor, clientHeight - 1);
@@ -151,7 +170,8 @@ function canvasDraw(width, height, line) {
     ctx.fillText("b", hor + centHor, ver - 1);
     razmB.innerHTML = "0.6m x " + blockWidth + "m";
     littleBlockB(0.6 - newLine / 0.6, blockWidth - newLine / 0.6);
-
+    // console.log("Block b visot = " + (0.6 - newLine / 0.6));
+    // console.log("Block b shir = " + (blockWidth - newLine / 0.6));
     lbB.style.display = "inline";
   } else {
     razmB.innerHTML = "0";
@@ -171,7 +191,7 @@ function canvasDraw(width, height, line) {
     lbC.style.display = "none";
   }
 
-  littleBlockA(Number(60 + centVer), Number(60 + centHor));
+  //littleBlockA(Number(60 + centVer), Number(60 + centHor));
 }
 //выравненные
 
@@ -274,21 +294,24 @@ function littleBlockA(visota, shirina) {
   block = document.getElementById("blockA");
   block.classList = "testing";
 
-  clientWidth = shirina;
   clientHeight = visota;
+  clientWidth = shirina;
+
+  // console.log(clientHeight + " client height");
+  // console.log("visota " + visota);
   block.width = clientWidth;
   block.height = clientHeight;
-  centrWidth = clientWidth / 2;
-  centrHeight = clientHeight / 2;
+  //centrWidth = clientWidth / 2;
+  //centrHeight = clientHeight / 2;
   let ctx = block.getContext("2d");
   ctx.lineWidth = 1;
   ctx.fillStyle = "#f8f8f8";
   ctx.fillRect(0, 0, clientWidth, clientHeight);
 
-  console.log(clientWidth + "clientWidth");
-  console.log(clientHeight + "clientHeight");
-  console.log(block.width);
-  console.log(block.height);
+  //console.log(clientWidth + "clientWidth");
+  // console.log(clientHeight + "clientHeight");
+  // console.log(block.width);
+  //console.log(block.height);
 
   // ctx.fillStyle = "blue";
   // ctx.font = "bold 8px Arial";
@@ -303,10 +326,9 @@ function littleBlockB(visota, shirina) {
   block.width = clientWidth;
   block.height = clientHeight;
 
-  // console.log(block.width + "block width");
-  // console.log(block.height + "block height");
-  // console.log(clientWidth + "client width");
-  // console.log(line);
+  //console.log("Block B width = " + clientWidth);
+  //console.log("Block B height = " + clientHeight);
+  //console.log(line.value);
 
   centrWidth = clientWidth / 2;
   centrHeight = clientHeight / 2;
