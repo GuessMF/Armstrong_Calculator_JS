@@ -173,6 +173,7 @@ function canvasDrawCentred(width, height, line) {
   ctx.fillStyle = "#f8f8f8";
   ctx.strokeStyle = "black";
   ctx.lineWidth = line;
+  canvas.style.border = "black solid " + `${line}` + "px";
 
   shirLast = 60 + 0.5 + (Math.trunc(width / 0.6) - 1) * 60;
   visotLast = 60 + 0.5 + (Math.trunc(height / 0.6) - 1) * 60;
@@ -202,8 +203,8 @@ function canvasDrawCentred(width, height, line) {
     }
   }
 
-  visotaMelkogo = kraiHor - line;
-  shirinaMelkogo = kraiVert - line;
+  visotaMelkogo = kraiHor - line / 2;
+  shirinaMelkogo = kraiVert - line / 2;
 
   adaptiv = 60 - line;
 
@@ -221,6 +222,9 @@ function canvasDrawCentred(width, height, line) {
   } else {
     razmA.innerHTML = "Нет";
     lbA.style.display = "none";
+    // visotaMelkogo < 0 ? (visotaMelkogo = 1) : console.log("new visota");
+    // shirinaMelkogo < 0 ? (shirinaMelkogo = 1) : console.log("new shir");
+    littleBlockA(visotaMelkogo, shirinaMelkogo);
     console.log(visotaMelkogo + "visota ELSE");
     console.log(shirinaMelkogo + "shir ELSE");
   }
@@ -228,6 +232,7 @@ function canvasDrawCentred(width, height, line) {
   if (visotaMelkogo > 0) {
     // ctx.fillText("b", 5, 10);
     lbB.style.display = "inline";
+    console.log("visota melkogo v B =" + visotaMelkogo);
     razmB.innerHTML =
       blockHeight.toFixed(2) + "x " + (adaptiv / 100).toFixed(2) + " m";
     littleBlockB(visotaMelkogo, adaptiv);
@@ -250,13 +255,17 @@ function canvasDrawCentred(width, height, line) {
 
   // сделать число изменяемым и сделать зависимость размера букови от высоты куска
   // либо сделать стрелку указывающую если бука туда не влезает
-  number = 8;
+  //4.2 и 4.3 тоже не высчитывает
   ctx.fillStyle = "red";
-  ctx.font = number + "pt Arial";
+  ctx.font = "8pt Arial";
 
-  ctx.fillText("a", shirinaMelkogo - number / 2, visotaMelkogo);
+  visotaMelkogo >= 7
+    ? ctx.fillText("a", shirinaMelkogo - 5, visotaMelkogo)
+    : ctx.fillText("↑a↑", 1, visotaMelkogo * 3);
+
   ctx.fillText("b", shirinaMelkogo + 30, visotaMelkogo);
-  ctx.fillText("c", shirinaMelkogo - number / 2, visotaMelkogo + 60);
+
+  ctx.fillText("c", shirinaMelkogo - 5, visotaMelkogo + 60);
   // littleBlockA(
   //   `${(kraiHor / 100).toFixed(2)}`,
   //   `${(kraiVert / 100).toFixed(2)}`,
