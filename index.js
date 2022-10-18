@@ -147,6 +147,9 @@ function canvasDraw(width, height, line) {
     lbC.style.display = "inline";
     razmC.innerHTML = blockHeight + "x " + adaptiv / 100 + " m";
     littleBlockC(visotaMelkogo, adaptiv);
+  } else {
+    razmC.innerHTML = "Нет";
+    lbC.style.display = "none";
   }
 }
 //выравненные
@@ -171,25 +174,24 @@ function canvasDrawCentred(width, height, line) {
   ctx.strokeStyle = "black";
   ctx.lineWidth = line;
 
-  llLine = 60 + Number(line);
-
-  shirLast = 60 + 0.5 + (Math.trunc(width / 0.6) - 1) * llLine;
-  visotLast = 60 + 0.5 + (Math.trunc(height / 0.6) - 1) * llLine;
+  shirLast = 60 + 0.5 + (Math.trunc(width / 0.6) - 1) * 60;
+  visotLast = 60 + 0.5 + (Math.trunc(height / 0.6) - 1) * 60;
   kraiVert = (clientWidth - shirLast) / 2;
   kraiHor = (clientHeight - visotLast) / 2;
 
-  // console.log(kraiVert + " kraiVert");
-  // console.log(kraiHor + " kraiHor");
-  // console.log(shirLast + " shirLast");
-  // console.log(visotLast + " visotLast");
+  //либо мутный канвас либо края чуть отличаются
+
+  kraiVert < 0 ? (kraiVert = -0.4) : console.log("hz");
+  kraiHor < 0 ? (kraiHor = -0.4) : console.log("hz");
+  console.log(shirLast + " ShirLast");
+  console.log(visotLast + "visotLast");
+  console.log(kraiVert + " kraiVert");
+  console.log(kraiHor + " kraiHor");
 
   for (i = 0; i < Math.trunc(width / 0.6) + 1; i++) {
     for (n = 0; n < Math.trunc(height / 0.6) + 1; n++) {
-      ver = kraiHor + 0.75 + n * llLine; // шаг между вертикальными линиями
-      hor = kraiVert + 0.75 + i * llLine; //шаг между горизонтальными линиями
-
-      // console.log("hor" + hor);
-      // console.log(clientWidth + "client width");
+      ver = kraiHor + 0.375 + n * 60; // шаг между вертикальными линиями
+      hor = kraiVert + 0.375 + i * 60; //шаг между горизонтальными линиями
 
       ctx.fillRect(0, 0, clientWidth, clientHeight); //фон
       ctx.moveTo(hor, 0);
@@ -199,48 +201,69 @@ function canvasDrawCentred(width, height, line) {
       ctx.stroke();
     }
   }
-  //блок А если равен нулю то не показывать в таблице
-  if ((kraiHor / 100).toFixed(2) > 0 && (kraiVert / 100).toFixed(2) > 0) {
+
+  visotaMelkogo = kraiHor - line;
+  shirinaMelkogo = kraiVert - line;
+
+  adaptiv = 60 - line;
+
+  blockHeight = visotaMelkogo / 100;
+  blockWidth = shirinaMelkogo / 100;
+  //блок А
+  if (visotaMelkogo > 0 && shirinaMelkogo > 0) {
+    //ctx.fillText("a", shirinaMelkogo, visotaMelkogo);
     razmA.innerHTML =
-      `${(kraiHor / 100).toFixed(2)}` +
-      "m  x " +
-      `${(kraiVert / 100).toFixed(2)}` +
-      "m";
+      blockHeight.toFixed(2) + "m x " + blockWidth.toFixed(2) + "m";
+    littleBlockA(visotaMelkogo, shirinaMelkogo);
     lbA.style.display = "inline";
+    console.log(visotaMelkogo + "visota IF");
+    console.log(shirinaMelkogo + "shir IF");
   } else {
-    razmA.innerHTML = "0";
+    razmA.innerHTML = "Нет";
     lbA.style.display = "none";
+    console.log(visotaMelkogo + "visota ELSE");
+    console.log(shirinaMelkogo + "shir ELSE");
   }
-  //блок В если равен нулю то не показывать в таблице
-  if ((kraiHor / 100).toFixed(2) > 0) {
-    razmB.innerHTML = `${(kraiHor / 100).toFixed(2)}` + "m  x  0.6m";
+  //B
+  if (visotaMelkogo > 0) {
+    // ctx.fillText("b", 5, 10);
     lbB.style.display = "inline";
+    razmB.innerHTML =
+      blockHeight.toFixed(2) + "x " + (adaptiv / 100).toFixed(2) + " m";
+    littleBlockB(visotaMelkogo, adaptiv);
   } else {
-    razmB.innerHTML = "0";
+    razmB.innerHTML = "Нет";
     lbB.style.display = "none";
   }
-  //блок С если равен нулю то не показывать в таблице
-  if ((kraiVert / 100).toFixed(2) > 0) {
-    razmC.innerHTML = "0.6m x " + `${(kraiVert / 100).toFixed(2)}` + "m";
+  //C
+
+  if (shirinaMelkogo > 0) {
+    //ctx.fillText("c", 10, 5);
     lbC.style.display = "inline";
+    razmC.innerHTML =
+      (adaptiv / 100).toFixed(2) + "m x " + blockWidth.toFixed(2) + "m";
+    littleBlockC(adaptiv, shirinaMelkogo);
   } else {
-    razmC.innerHTML = "0";
+    razmC.innerHTML = "Нет";
     lbC.style.display = "none";
   }
 
+  // сделать число изменяемым и сделать зависимость размера букови от высоты куска
+  // либо сделать стрелку указывающую если бука туда не влезает
+  number = 8;
   ctx.fillStyle = "red";
-  ctx.font = "8pt Arial";
+  ctx.font = number + "pt Arial";
 
-  ctx.fillText("a", kraiVert / 2 - 5, kraiHor);
-  ctx.fillText("b", kraiVert + 25, kraiHor);
-  ctx.fillText("c", kraiVert / 2 - 5, kraiHor + 60);
-  littleBlockA(
-    `${(kraiHor / 100).toFixed(2)}`,
-    `${(kraiVert / 100).toFixed(2)}`,
-    line
-  );
-  littleBlockB(`${(kraiHor / 100).toFixed(2)}`, 0.6, line);
-  littleBlockC(0.6, `${(kraiVert / 100).toFixed(2)}`, line);
+  ctx.fillText("a", shirinaMelkogo - number / 2, visotaMelkogo);
+  ctx.fillText("b", shirinaMelkogo + 30, visotaMelkogo);
+  ctx.fillText("c", shirinaMelkogo - number / 2, visotaMelkogo + 60);
+  // littleBlockA(
+  //   `${(kraiHor / 100).toFixed(2)}`,
+  //   `${(kraiVert / 100).toFixed(2)}`,
+  //   line
+  // );
+  // littleBlockB(`${(kraiHor / 100).toFixed(2)}`, 0.6, line);
+  // littleBlockC(0.6, `${(kraiVert / 100).toFixed(2)}`, line);
 }
 
 // test.addEventListener("click", () => {
