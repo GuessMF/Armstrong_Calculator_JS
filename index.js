@@ -10,7 +10,8 @@ height.addEventListener("keyup", function () {
   this.value = this.value.replace(/[^\d.,-]/g, "").replace(/[,-]/g, ".");
 });
 
-//сделать кнопки с размером шва вместо инпута
+//сделать кнопки с размером шва вместо инпута вув
+console.log("heee");
 line.addEventListener("keyup", function () {
   console.log(Number.isInteger(this.value));
   // console.log(2.1 % 2);
