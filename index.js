@@ -83,10 +83,9 @@ function canvasDraw(width, height, line) {
   ctx.fillStyle = "#f8f8f8";
   ctx.strokeStyle = "black";
   ctx.lineWidth = line;
-  //console.log(line + "line");
 
   llLine = 60 + Number(line);
-  //console.log(llLine);
+
   for (i = 0; i < Math.trunc(width / 0.6); i++) {
     for (n = 0; n < Math.trunc(height / 0.6); n++) {
       ver = 60 + 0.5 + n * llLine; // шаг между вертикальными линиями
@@ -99,6 +98,7 @@ function canvasDraw(width, height, line) {
       ctx.stroke();
     }
   }
+
   //подписанные
   ctx.fillStyle = "red";
   ctx.font = 12 + "pt Arial";
@@ -116,55 +116,31 @@ function canvasDraw(width, height, line) {
 
   newLine = line / 200;
   adaptiv = 60 - line;
-  //отрисовка А если обе стороны больше 0
+
+  //отрисовка А
   if (visotaMelkogo > 0.25 && shirinaMelkogo > 0.25) {
-    // ctx.fillText("a", hor + centHor, clientHeight - 1);
-    console.log(visotaMelkogo);
-    console.log(shirinaMelkogo);
-
-    visotaMelkogo >= 7 && shirinaMelkogo >= 7
-      ? ctx.fillText("a", clientWidth - 10, clientHeight - 1)
-      : console.log("TestA1");
-
-    visotaMelkogo <= 7 && shirinaMelkogo <= 7
-      ? ctx.fillText("a⤡", clientWidth - 25, clientHeight - 10)
-      : console.log("testA2");
-
-    // visotaMelkogo < 7
-    //   ? ctx.fillText("↓a", clientWidth - 20, clientHeight - 7)
-    //   : console.log("0-7");
-    // shirinaMelkogo < 7 && visotaMelkogo > 7
-    //   ? ctx.fillText("←a", shirinaMelkogo, visotaMelkogo - 5)
-    //   : console.log("7+");
-
-    // Доделать буквы при высоте или ширине больше 7 , валидацию инпута и посмотреть еще коменты
-
+    if (visotaMelkogo >= 7 && shirinaMelkogo >= 7) {
+      ctx.fillText("a", clientWidth - 10, clientHeight - 1);
+    }
+    if (visotaMelkogo <= 7 || shirinaMelkogo <= 7) {
+      ctx.fillText("a⤡", hor - 20, ver - 5);
+    }
     razmA.innerHTML = blockHeight + "m x " + blockWidth + "m";
     littleBlockA(visotaMelkogo, shirinaMelkogo);
     lbA.style.display = "inline";
-    console.log(visotaMelkogo + "visota IF");
-    console.log(shirinaMelkogo + "shir IF");
   } else {
     razmA.innerHTML = "Нет";
     lbA.style.display = "none";
-    console.log(visotaMelkogo + "visota ELSE");
-    console.log(shirinaMelkogo + "shir ELSE");
   }
 
   //отрисовка В если его ширина больше 0
   if (shirinaMelkogo > 0.25) {
-    // ctx.fillText("b", hor + centHor, ver - 1);
-    shirinaMelkogo > 7
-      ? ctx.fillText("b", hor + centHor * 2 - 10, ver - 30)
-      : console.log("7+");
-
-    shirinaMelkogo < 7
-      ? ctx.fillText("b→", hor - 30, ver - 30)
-      : console.log("7+");
-
-    // visotaMelkogo < 7
-    //   ? ctx.fillText("↑b↑", shirinaMelkogo + 30, visotaMelkogo + 10)
-    //   : console.log("0-7");
+    if (shirinaMelkogo > 7) {
+      ctx.fillText("b", hor + centHor * 2 - 10, ver - 30);
+    }
+    if (shirinaMelkogo < 7) {
+      ctx.fillText("b→", hor - 30, ver - 30);
+    }
 
     lbB.style.display = "inline";
     razmB.innerHTML = adaptiv / 100 + "m x " + blockWidth + "m";
@@ -175,14 +151,12 @@ function canvasDraw(width, height, line) {
   }
   //C
   if (visotaMelkogo > 0) {
-    // ctx.fillText("c", hor - 30, ver - 1 + visotaMelkogo);
-
-    // visotaMelkogo >= 7 || shirinaMelkogo < 7
-    // ? ctx.fillText("b", shirinaMelkogo + 30, visotaMelkogo)
-    // : console.log("7+");
-    visotaMelkogo < 7
-      ? ctx.fillText("c↓", hor - 60, ver - 10)
-      : console.log("0-7");
+    if (visotaMelkogo >= 7) {
+      ctx.fillText("c", hor - 40, ver + visotaMelkogo - 1);
+    }
+    if (visotaMelkogo < 7) {
+      ctx.fillText("c↓", hor - 60, ver - 10);
+    }
 
     lbC.style.display = "inline";
     razmC.innerHTML = blockHeight + "x " + adaptiv / 100 + " m";
@@ -192,8 +166,8 @@ function canvasDraw(width, height, line) {
     lbC.style.display = "none";
   }
 }
-//выравненные
 
+//выравненные
 function canvasDrawCentred(width, height, line) {
   littleBlocksView = document.querySelector(".littleBlocks");
 
@@ -221,13 +195,12 @@ function canvasDrawCentred(width, height, line) {
   kraiHor = (clientHeight - visotLast) / 2;
 
   //либо мутный канвас либо края чуть отличаются
-
-  kraiVert < 0 ? (kraiVert = -0.4) : console.log("hz");
-  kraiHor < 0 ? (kraiHor = -0.4) : console.log("hz");
-  console.log(shirLast + " ShirLast");
-  console.log(visotLast + "visotLast");
-  console.log(kraiVert + " kraiVert");
-  console.log(kraiHor + " kraiHor");
+  if (kraiVert < 0) {
+    kraiVert = -0.4;
+  }
+  if (kraiHor < 0) {
+    kraiHor = -0.4;
+  }
 
   for (i = 0; i < Math.trunc(width / 0.6) + 1; i++) {
     for (n = 0; n < Math.trunc(height / 0.6) + 1; n++) {
@@ -253,48 +226,36 @@ function canvasDrawCentred(width, height, line) {
 
   ctx.fillStyle = "red";
   ctx.font = "8pt Arial";
+
   //блок А
   if (visotaMelkogo > 0.25 && shirinaMelkogo > 0.25) {
-    visotaMelkogo >= 7 && shirinaMelkogo >= 7
-      ? ctx.fillText("a", shirinaMelkogo - 5, visotaMelkogo)
-      : console.log("7+");
-    visotaMelkogo < 7
-      ? ctx.fillText("↑a", 1, visotaMelkogo + 10)
-      : console.log("0-7");
-
-    shirinaMelkogo < 7 && visotaMelkogo > 7
-      ? ctx.fillText("←a", shirinaMelkogo, visotaMelkogo - 5)
-      : console.log("7+");
+    if (shirinaMelkogo < 7 || visotaMelkogo < 7) {
+      ctx.fillText("⤡a", shirinaMelkogo + line * 2, kraiHor + 10);
+    }
+    if (shirinaMelkogo > 7 && visotaMelkogo > 7) {
+      ctx.fillText("a", shirinaMelkogo - 7, visotaMelkogo);
+    }
 
     razmA.innerHTML =
       blockHeight.toFixed(2) + "m x " + blockWidth.toFixed(2) + "m";
     littleBlockA(visotaMelkogo, shirinaMelkogo);
     lbA.style.display = "inline";
-    console.log(visotaMelkogo + "visota IF");
-    console.log(shirinaMelkogo + "shir IF");
   } else {
     razmA.innerHTML = "Нет";
     lbA.style.display = "none";
 
     littleBlockA(visotaMelkogo, shirinaMelkogo);
-    console.log(visotaMelkogo + "visota ELSE");
-    console.log(shirinaMelkogo + "shir ELSE");
   }
+
   //B
   if (visotaMelkogo > 0.25) {
-    visotaMelkogo >= 7 || shirinaMelkogo < 7
-      ? ctx.fillText("b", shirinaMelkogo + 30, visotaMelkogo)
-      : console.log("7+");
-    visotaMelkogo < 7
-      ? ctx.fillText("↑b↑", shirinaMelkogo + 30, visotaMelkogo + 10)
-      : console.log("0-7");
-
-    // shirinaMelkogo < 7
-    //   ? ctx.fillText("b", shirinaMelkogo + 30, visotaMelkogo)
-    //   : console.log("7+");
-
+    if (visotaMelkogo < 7) {
+      ctx.fillText("↑b", shirinaMelkogo + 30, kraiHor + 10);
+    }
+    if (visotaMelkogo > 7) {
+      ctx.fillText("b", shirinaMelkogo + 30, visotaMelkogo);
+    }
     lbB.style.display = "inline";
-    //console.log("visota melkogo v B =" + visotaMelkogo);
     razmB.innerHTML =
       blockHeight.toFixed(2) + "x " + (adaptiv / 100).toFixed(2) + " m";
     littleBlockB(visotaMelkogo, adaptiv);
@@ -302,17 +263,15 @@ function canvasDrawCentred(width, height, line) {
     razmB.innerHTML = "Нет";
     lbB.style.display = "none";
   }
+
   //C
-
   if (shirinaMelkogo > 0.25) {
-    //ctx.fillText("c", 10, 5);
-    shirinaMelkogo >= 7
-      ? ctx.fillText("c", shirinaMelkogo - 5, visotaMelkogo + 60)
-      : console.log("7+");
-
-    shirinaMelkogo < 7
-      ? ctx.fillText("←c", shirinaMelkogo, visotaMelkogo + 60)
-      : console.log("7+");
+    if (shirinaMelkogo > 7) {
+      ctx.fillText("c", shirinaMelkogo - 5, visotaMelkogo + 60);
+    }
+    if (shirinaMelkogo < 7) {
+      ctx.fillText("←c", shirinaMelkogo + line * 2, visotaMelkogo + 60);
+    }
 
     lbC.style.display = "inline";
     razmC.innerHTML =
@@ -326,29 +285,8 @@ function canvasDrawCentred(width, height, line) {
   // сделать число изменяемым и сделать зависимость размера букови от высоты куска
   // либо сделать стрелку указывающую если бука туда не влезает
   //4.2 и 4.3 тоже не высчитывает
-
-  // visotaMelkogo >= 7
-  //   ? ctx.fillText("a", shirinaMelkogo - 5, visotaMelkogo)
-  //   : console.log("7+");
-  // 0 < visotaMelkogo < 7
-  //   ? ctx.fillText("↑a↑", 1, visotaMelkogo * 3)
-  //   : console.log("0-7");
-
-  // ctx.fillText("b", shirinaMelkogo + 30, visotaMelkogo);
-
-  // ctx.fillText("c", shirinaMelkogo - 5, visotaMelkogo + 60);
-  // littleBlockA(
-  //   `${(kraiHor / 100).toFixed(2)}`,
-  //   `${(kraiVert / 100).toFixed(2)}`,
-  //   line
-  // );
-  // littleBlockB(`${(kraiHor / 100).toFixed(2)}`, 0.6, line);
-  // littleBlockC(0.6, `${(kraiVert / 100).toFixed(2)}`, line);
 }
 
-// test.addEventListener("click", () => {
-//   littleBlockA();
-// });
 function littleBlockA(visota, shirina) {
   block = document.getElementById("blockA");
   block.classList = "testing";
@@ -370,17 +308,10 @@ function littleBlockB(visota, shirina) {
 
   clientHeight = visota;
   clientWidth = shirina;
-  // console.log("Visot = " + clientHeight);
-  //console.log(" Shir = " + clientWidth);
 
   block.width = clientWidth;
   block.height = clientHeight;
 
-  //console.log("Block B width = " + clientWidth);
-  //console.log("Block B height = " + clientHeight);
-  //console.log(line.value);
-  // centrWidth = clientWidth / 2;
-  // centrHeight = clientHeight / 2;
   let ctx = block.getContext("2d");
   ctx.lineWidth = 1;
   ctx.fillStyle = "#f8f8f8";
