@@ -1,7 +1,6 @@
-//валидация инпутов только на цифры и замена запятой на точку
-
 //сделать валидацию шва 1-5 целые числа
 //поправить 4.2 на 4.2 меняется высота и ширина на отрицательные
+//поправить колличество блоков
 
 width.addEventListener("keyup", function () {
   this.value = this.value.replace(/[^\d.,-]/g, "").replace(/[,-]/g, ".");
@@ -9,6 +8,22 @@ width.addEventListener("keyup", function () {
 
 height.addEventListener("keyup", function () {
   this.value = this.value.replace(/[^\d.,-]/g, "").replace(/[,-]/g, ".");
+});
+
+//сделать кнопки с размером шва вместо инпута
+line.addEventListener("keyup", function () {
+  console.log(Number.isInteger(this.value));
+  // console.log(2.1 % 2);
+  if (this.value > 5 && this.value % this.value == 0) {
+    this.value = "";
+  }
+  // if(){
+
+  // }
+  // if (this.value > 5 || this.value % this.value !== 0) {
+  //   this.value = "";
+  // }
+  // this.value = this.value.replace(/[^\d.,-]/g, "").replace(/[,-]/g, ".");
 });
 
 let razmerBlokaAVisota;
@@ -135,6 +150,8 @@ function canvasDraw(width, height, line) {
 
   //отрисовка В если его ширина больше 0
   if (shirinaMelkogo > 0.25) {
+    console.log("shirina melkogo" + shirinaMelkogo);
+    console.log("visota melkogo" + visotaMelkogo);
     if (shirinaMelkogo > 7) {
       ctx.fillText("b", hor + centHor * 2 - 10, ver - 30);
     }
