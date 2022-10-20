@@ -122,11 +122,44 @@ function canvasDraw(width, height, line) {
   centHor = (clientWidth - hor) / 2; //центр кравнего блока для отцентровски буквы
   centVer = (clientHeight - ver) / 2;
 
-  shirinaMelkogo = clientWidth - hor - line / 2;
-  visotaMelkogo = clientHeight - ver - line / 2;
+  //shirinaMelkogo = clientWidth - hor - line / 2;
+  // visotaMelkogo = clientHeight - ver - line / 2;
 
-  blockHeight = `${((clientHeight - ver) / 100).toFixed(2)}`;
-  blockWidth = `${((clientWidth - hor) / 100).toFixed(2)}`;
+  let shirinaMelkogo;
+  let visotaMelkogo;
+
+  if (clientWidth - ver < 0) {
+    shirinaMelkogo = 60 + (clientWidth - ver);
+  } else {
+    shirinaMelkogo = clientWidth - ver - line / 2;
+  }
+
+  if (clientHeight - hor < 0) {
+    visotaMelkogo = 60 + (clientHeight - hor);
+  } else {
+    visotaMelkogo = canvas.height - hor - line / 2;
+  }
+
+  visotaMelkogo > 59
+    ? (visotaMelkogo = visotaMelkogo - 60)
+    : (visotaMelkogo = visotaMelkogo);
+  shirinaMelkogo > 59
+    ? (shirinaMelkogo = shirinaMelkogo - 60)
+    : (shirinaMelkogo = shirinaMelkogo);
+
+  console.log("canvhei = " + canvas.height);
+  console.log("hor = " + hor);
+  console.log("line/2 = " + line / 2);
+
+  // console.log("N = " + n);
+  // console.log(" I = " + i);
+  // console.log("clientWidth = " + clientWidth);
+  // console.log("Posledn" + ver);
+  // console.log("Shirina = " + shirinaMelkogo);
+  console.log("Visota = " + visotaMelkogo);
+
+  blockHeight = `${(visotaMelkogo / 100).toFixed(2)}`;
+  blockWidth = `${(shirinaMelkogo / 100).toFixed(2)}`;
 
   maxHeight = clientHeight - 1;
 
@@ -135,6 +168,7 @@ function canvasDraw(width, height, line) {
 
   //отрисовка А
   if (visotaMelkogo > 0.25 && shirinaMelkogo > 0.25) {
+    console.log("Vis A = " + visotaMelkogo + " Shir A = " + shirinaMelkogo);
     if (visotaMelkogo >= 7 && shirinaMelkogo >= 7) {
       ctx.fillText("a", clientWidth - 10, clientHeight - 1);
     }
@@ -150,18 +184,20 @@ function canvasDraw(width, height, line) {
   }
 
   //отрисовка В если его ширина больше 0
-  if (shirinaMelkogo > 0.25) {
-    console.log("shirina melkogo" + shirinaMelkogo);
-    console.log("visota melkogo" + visotaMelkogo);
+  if (shirinaMelkogo > 0.25 && visotaMelkogo > 0.25) {
+    // console.log("shirina melkogo" + shirinaMelkogo);
+    //console.log("visota melkogo" + visotaMelkogo);
+    console.log("Vis B = " + visotaMelkogo + "  Shir B = " + shirinaMelkogo);
     if (shirinaMelkogo > 7) {
-      ctx.fillText("b", hor + centHor * 2 - 10, ver - 30);
+      // ctx.fillText("b", hor + centHor * 2 - 10, ver - 30);
+      ctx.fillText("b", canvas.width - 10, canvas.height - visotaMelkogo - 10);
     }
     if (shirinaMelkogo < 7) {
       ctx.fillText("b→", hor - 30, ver - 30);
     }
 
     lbB.style.display = "inline";
-    razmB.innerHTML = adaptiv / 100 + "m x " + blockWidth + "m";
+    razmB.innerHTML = blockHeight + "m x " + blockWidth + "m";
     littleBlockB(adaptiv, shirinaMelkogo);
   } else {
     razmB.innerHTML = "Нет";
@@ -169,8 +205,9 @@ function canvasDraw(width, height, line) {
   }
   //C
   if (visotaMelkogo > 0) {
+    console.log("Vis C = " + visotaMelkogo + "  Shir C = " + shirinaMelkogo);
     if (visotaMelkogo >= 7) {
-      ctx.fillText("c", hor - 40, ver + visotaMelkogo - 1);
+      ctx.fillText("c", canvas.width - shirinaMelkogo - 20, canvas.height - 1);
     }
     if (visotaMelkogo < 7) {
       ctx.fillText("c↓", hor - 60, ver - 10);
