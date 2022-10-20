@@ -7,7 +7,10 @@ height.addEventListener("keyup", function () {
 });
 
 line.addEventListener("keyup", function () {
-  if (this.value > 5 && this.value % this.value == 0) {
+  if (this.value > 5) {
+    this.value = "";
+  }
+  if (this.value % 1 !== 0) {
     this.value = "";
   }
 });
