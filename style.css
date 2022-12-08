@@ -73,6 +73,9 @@ table {
   margin-left: 20px;
   background-color: #b1c6d6;
 }
+.parametrs {
+  display: none;
+}
 
 /* span {
   border: black 1px solid;

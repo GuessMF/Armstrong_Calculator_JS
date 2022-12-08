@@ -7,9 +7,14 @@ height.addEventListener("keyup", function () {
 });
 
 line.addEventListener("keyup", function () {
-  if (this.value > 5) {
+  if (this.value > 50) {
     this.value = "";
   }
+  // if (this.value < 10) {
+  //   //setTimeout(alert("ggg"), 20000);
+  //   // alert("Введите ширину шва больше 10 мм");
+  //   this.value = "10";
+  // }
   if (this.value % 1 !== 0) {
     this.value = "";
   }
@@ -28,7 +33,7 @@ calculate.addEventListener("click", () => {
     per = ((a + b) * 2).toFixed(2); // периметр фигуры
     bl = ((a * b) / 0.36).toFixed(1); //всего блоков по 0.36m
     blocksSize = 60 - line.value;
-    oneBlock.innerHTML = 0.6 + "m x " + 0.6 + "m";
+    oneBlock.innerHTML = 600 + "mm x " + 600 + "mm";
     ploshad.innerHTML = pl + "m²";
     perimetr.innerHTML = per + "m";
     blocks.innerHTML = bl + " штук";
@@ -36,7 +41,7 @@ calculate.addEventListener("click", () => {
     razmB;
     razmC;
 
-    canvasDraw(width.value, height.value, line.value);
+    canvasDraw(width.value, height.value, line.value / 10);
   }
 });
 centred.addEventListener("click", () => {
@@ -51,7 +56,7 @@ centred.addEventListener("click", () => {
     per = ((a + b) * 2).toFixed(2); // периметр фигуры
     bl = ((a * b) / 0.36).toFixed(1); //всего блоков по 0.36m
 
-    oneBlock.innerHTML = "0.6m x 0.6m";
+    oneBlock.innerHTML = "600 mm x 600 mm";
     ploshad.innerHTML = pl + "m²";
     perimetr.innerHTML = per + "m";
     blocks.innerHTML = bl + " штук";
@@ -73,6 +78,7 @@ function canvasDraw(width, height, line) {
   lbA = document.querySelector(".divA");
   lbB = document.querySelector(".divB");
   lbC = document.querySelector(".divC");
+  document.querySelector(".parametrs").style.display = "table-row";
   canvas = document.getElementById("canvas");
   canvas.classList = "canv";
   clientWidth = width * 100;
@@ -115,13 +121,15 @@ function canvasDraw(width, height, line) {
   if (clientWidth - hor < 0) {
     shirinaMelkogo = 60 + (clientWidth - hor);
   } else {
-    shirinaMelkogo = clientWidth - hor - line / 2;
+    //shirinaMelkogo = clientWidth - hor - line / 2;
+    shirinaMelkogo = clientWidth - hor;
   }
 
   if (clientHeight - ver < 0) {
     visotaMelkogo = 60 + (clientHeight - ver);
   } else {
-    visotaMelkogo = canvas.height - ver - line / 2;
+    //visotaMelkogo = canvas.height - ver - line / 2;
+    visotaMelkogo = canvas.height - ver;
   }
 
   visotaMelkogo > 59
@@ -142,8 +150,8 @@ function canvasDraw(width, height, line) {
   maxHeight = clientHeight - 1;
 
   newLine = line / 200;
-  adaptiv = 60 - line;
-
+  // adaptiv = 60 - line;
+  adaptiv = 60;
   //отрисовка А
   if (visotaMelkogo > 0.25 && shirinaMelkogo > 0.25) {
     if (visotaMelkogo >= 7 && shirinaMelkogo >= 7) {
@@ -152,7 +160,7 @@ function canvasDraw(width, height, line) {
     if (visotaMelkogo < 7 || shirinaMelkogo <= 7) {
       ctx.fillText("a⤡", hor - 20, ver - 5);
     }
-    razmA.innerHTML = blockHeight + "m x " + blockWidth + "m";
+    razmA.innerHTML = blockHeight * 1000 + "mm x " + blockWidth * 1000 + "mm";
     littleBlockA(visotaMelkogo, shirinaMelkogo);
     lbA.style.display = "inline";
   } else {
@@ -170,7 +178,7 @@ function canvasDraw(width, height, line) {
     }
 
     lbB.style.display = "inline";
-    razmB.innerHTML = adaptiv / 100 + "m x " + blockWidth + "m";
+    razmB.innerHTML = adaptiv * 10 + "mm x " + blockWidth * 1000 + "mm";
     littleBlockB(adaptiv, shirinaMelkogo);
   } else {
     razmB.innerHTML = "Нет";
@@ -186,7 +194,7 @@ function canvasDraw(width, height, line) {
     }
 
     lbC.style.display = "inline";
-    razmC.innerHTML = blockHeight + "m x " + adaptiv / 100 + " m";
+    razmC.innerHTML = blockHeight * 1000 + "mm x " + adaptiv * 10 + " mm";
     littleBlockC(visotaMelkogo, adaptiv);
   } else {
     razmC.innerHTML = "Нет";
@@ -201,6 +209,7 @@ function canvasDrawCentred(width, height, line) {
   lbA = document.querySelector(".divA");
   lbB = document.querySelector(".divB");
   lbC = document.querySelector(".divC");
+  document.querySelector(".parametrs").style.display = "table-row";
 
   littleBlocksView.style.display = "grid";
   canvas = document.getElementById("canvas");
@@ -264,7 +273,10 @@ function canvasDrawCentred(width, height, line) {
     }
 
     razmA.innerHTML =
-      blockHeight.toFixed(2) + "m x " + blockWidth.toFixed(2) + "m";
+      blockHeight.toFixed(2) * 1000 +
+      "mm x " +
+      blockWidth.toFixed(2) * 1000 +
+      "mm";
     littleBlockA(visotaMelkogo, shirinaMelkogo);
     lbA.style.display = "inline";
   } else {
@@ -284,7 +296,10 @@ function canvasDrawCentred(width, height, line) {
     }
     lbB.style.display = "inline";
     razmB.innerHTML =
-      blockHeight.toFixed(2) + "x " + (adaptiv / 100).toFixed(2) + " m";
+      blockHeight.toFixed(2) * 1000 +
+      "mm x " +
+      (adaptiv / 100).toFixed(2) * 1000 +
+      " mm";
     littleBlockB(visotaMelkogo, adaptiv);
   } else {
     razmB.innerHTML = "Нет";
@@ -302,7 +317,10 @@ function canvasDrawCentred(width, height, line) {
 
     lbC.style.display = "inline";
     razmC.innerHTML =
-      (adaptiv / 100).toFixed(2) + "m x " + blockWidth.toFixed(2) + "m";
+      (adaptiv / 100).toFixed(2) * 1000 +
+      "mm x " +
+      blockWidth.toFixed(2) * 1000 +
+      "mm";
     littleBlockC(adaptiv, shirinaMelkogo);
   } else {
     razmC.innerHTML = "Нет";
