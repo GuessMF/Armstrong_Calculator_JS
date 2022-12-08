@@ -7,14 +7,14 @@ height.addEventListener("keyup", function () {
 });
 
 line.addEventListener("keyup", function () {
-  if (this.value > 50) {
+  if (this.value > 5) {
     this.value = "";
   }
-  // if (this.value < 10) {
-  //   //setTimeout(alert("ggg"), 20000);
-  //   // alert("Введите ширину шва больше 10 мм");
-  //   this.value = "10";
-  // }
+  if (this.value < 1) {
+    //setTimeout(alert("ggg"), 20000);
+    // alert("Введите ширину шва больше 10 мм");
+    this.value = "";
+  }
   if (this.value % 1 !== 0) {
     this.value = "";
   }
@@ -64,7 +64,7 @@ centred.addEventListener("click", () => {
     razmB;
     razmC;
 
-    canvasDrawCentred(width.value, height.value, line.value);
+    canvasDrawCentred(width.value, height.value, line.value / 10);
   }
 });
 
@@ -97,8 +97,8 @@ function canvasDraw(width, height, line) {
 
   for (i = 0; i < Math.trunc(width / 0.6); i++) {
     for (n = 0; n < Math.trunc(height / 0.6); n++) {
-      ver = 60 + 0.5 + n * llLine; // шаг между вертикальными линиями
-      hor = 60 + 0.5 + i * llLine; //шаг между горизонтальными линиями
+      ver = 60 + n * llLine; // шаг между вертикальными линиями
+      hor = 60 + i * llLine; //шаг между горизонтальными линиями
       ctx.fillRect(0, 0, clientWidth, clientHeight);
       ctx.moveTo(hor, 0);
       ctx.lineTo(hor, clientHeight);
@@ -127,15 +127,16 @@ function canvasDraw(width, height, line) {
 
   if (clientHeight - ver < 0) {
     visotaMelkogo = 60 + (clientHeight - ver);
+    // visotaMelkogo = 60;
   } else {
     //visotaMelkogo = canvas.height - ver - line / 2;
     visotaMelkogo = canvas.height - ver;
   }
 
-  visotaMelkogo > 59
+  visotaMelkogo > 59.9
     ? (visotaMelkogo = visotaMelkogo - 60)
     : (visotaMelkogo = visotaMelkogo);
-  shirinaMelkogo > 59
+  shirinaMelkogo > 59.9
     ? (shirinaMelkogo = shirinaMelkogo - 60)
     : (shirinaMelkogo = shirinaMelkogo);
 
@@ -144,14 +145,15 @@ function canvasDraw(width, height, line) {
     : (visotaMelkogo = visotaMelkogo);
   shirinaMelkogo < 0 ? 60 + shirinaMelkogo : (shirinaMelkogo = shirinaMelkogo);
 
-  blockHeight = `${(visotaMelkogo / 100).toFixed(2)}`;
-  blockWidth = `${(shirinaMelkogo / 100).toFixed(2)}`;
+  blockHeight = `${(visotaMelkogo / 100).toFixed(3)}`;
+  blockWidth = `${(shirinaMelkogo / 100).toFixed(3)}`;
 
   maxHeight = clientHeight - 1;
 
   newLine = line / 200;
   // adaptiv = 60 - line;
   adaptiv = 60;
+
   //отрисовка А
   if (visotaMelkogo > 0.25 && shirinaMelkogo > 0.25) {
     if (visotaMelkogo >= 7 && shirinaMelkogo >= 7) {
@@ -225,8 +227,8 @@ function canvasDrawCentred(width, height, line) {
   ctx.lineWidth = line;
   canvas.style.border = "black solid " + `${line}` + "px";
 
-  shirLast = 60 + 0.5 + (Math.trunc(width / 0.6) - 1) * 60;
-  visotLast = 60 + 0.5 + (Math.trunc(height / 0.6) - 1) * 60;
+  shirLast = 60 + (Math.trunc(width / 0.6) - 1) * 60;
+  visotLast = 60 + (Math.trunc(height / 0.6) - 1) * 60;
   kraiVert = (clientWidth - shirLast) / 2;
   kraiHor = (clientHeight - visotLast) / 2;
 
@@ -251,6 +253,8 @@ function canvasDrawCentred(width, height, line) {
       ctx.stroke();
     }
   }
+  corVer = (n * line * 10) / 2;
+  corHor = (i * line * 10) / 2;
 
   visotaMelkogo = kraiHor - line / 2;
   shirinaMelkogo = kraiVert - line / 2;
@@ -272,11 +276,9 @@ function canvasDrawCentred(width, height, line) {
       ctx.fillText("a", shirinaMelkogo - 7, visotaMelkogo);
     }
 
-    razmA.innerHTML =
-      blockHeight.toFixed(2) * 1000 +
-      "mm x " +
-      blockWidth.toFixed(2) * 1000 +
-      "mm";
+    height = blockHeight.toFixed(2) * 1000 - corHor;
+    width = blockWidth.toFixed(2) * 1000 - corVer;
+    razmA.innerHTML = height + "mm x " + width + "mm";
     littleBlockA(visotaMelkogo, shirinaMelkogo);
     lbA.style.display = "inline";
   } else {
@@ -295,11 +297,7 @@ function canvasDrawCentred(width, height, line) {
       ctx.fillText("b", shirinaMelkogo + 30, visotaMelkogo);
     }
     lbB.style.display = "inline";
-    razmB.innerHTML =
-      blockHeight.toFixed(2) * 1000 +
-      "mm x " +
-      (adaptiv / 100).toFixed(2) * 1000 +
-      " mm";
+    razmB.innerHTML = height + "mm x " + 600 + " mm";
     littleBlockB(visotaMelkogo, adaptiv);
   } else {
     razmB.innerHTML = "Нет";
@@ -316,11 +314,7 @@ function canvasDrawCentred(width, height, line) {
     }
 
     lbC.style.display = "inline";
-    razmC.innerHTML =
-      (adaptiv / 100).toFixed(2) * 1000 +
-      "mm x " +
-      blockWidth.toFixed(2) * 1000 +
-      "mm";
+    razmC.innerHTML = 600 + "mm x " + width + "mm";
     littleBlockC(adaptiv, shirinaMelkogo);
   } else {
     razmC.innerHTML = "Нет";
