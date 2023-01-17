@@ -24,7 +24,7 @@ line.addEventListener("keyup", function () {
 calculate.addEventListener("click", () => {
   if (width.value == "" || height.value == "") {
     alert("Введите размеры комнаты");
-  } else if (width.value > 3500 || height.value > 3500) {
+  } else if (width.value > 350000 || height.value > 350000) {
     alert("Ведите число до 35");
   } else {
     a = Number(width.value / 1000);
@@ -373,17 +373,35 @@ testButt.addEventListener("click", () => {
   let w = width.value;
   let h = height.value;
 
-  canvas = document.getElementById("canvas");
-  canvas.classList = "canv";
-  clientWidth = w / 100;
-  clientHeight = h / 10;
-  canvas.width = clientWidth;
-  canvas.height = clientHeight;
+  // canvas = document.getElementById("canvas");
+  // canvas.classList = "canv";
+  // clientWidth = w / 10;
+  // clientHeight = h / 10;
+  // canvas.width = clientWidth;
+  // canvas.height = clientHeight;
 
-  canvas.style.border = "black solid " + `${line}` + "px";
+  // canvas.style.border = "black solid " + `${line}` + "px";
 
-  let ctx = canvas.getContext("2d");
-  ctx.fillStyle = "#f8f8f8";
-  ctx.strokeStyle = "black";
-  ctx.lineWidth = line;
+  // let ctx = canvas.getContext("2d");
+  // ctx.fillStyle = "#f8f8f8";
+  // ctx.strokeStyle = "black";
+  // ctx.lineWidth = line;
+
+  let testDiv = document.querySelector(".newTest");
+
+  for (i = 0; i < h; i++) {
+    let newTr = document.createElement("tr");
+    newTr.className = "newTr";
+    testDiv.append(newTr);
+
+    for (n = 0; n < w; n++) {
+      let newTd = document.createElement("td");
+      newTd.className = "newTr";
+      newTr.append(newTd);
+    }
+  }
+
+  // let newTd = document.createElement("td");
+  // newTd.className = "newTr";
+  // newTr.append(newTd);
 });
