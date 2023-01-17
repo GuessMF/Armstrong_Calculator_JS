@@ -24,11 +24,13 @@ line.addEventListener("keyup", function () {
 calculate.addEventListener("click", () => {
   if (width.value == "" || height.value == "") {
     alert("Введите размеры комнаты");
-  } else if (width.value > 35 || height.value > 35) {
+  } else if (width.value > 3500 || height.value > 3500) {
     alert("Ведите число до 35");
   } else {
-    a = Number(width.value);
-    b = Number(height.value);
+    a = Number(width.value / 1000);
+    b = Number(height.value / 1000);
+    console.log(a);
+    console.log(width.value);
     pl = (a * b).toFixed(2); //площадь фигуры
     per = ((a + b) * 2).toFixed(2); // периметр фигуры
     bl = ((a * b) / 0.36).toFixed(1); //всего блоков по 0.36m
@@ -41,17 +43,17 @@ calculate.addEventListener("click", () => {
     razmB;
     razmC;
 
-    canvasDraw(width.value, height.value, line.value / 10);
+    canvasDraw(width.value / 1000, height.value / 1000, line.value / 10);
   }
 });
 centred.addEventListener("click", () => {
   if (width.value == "" || height.value == "") {
     alert("Введите размеры комнаты");
-  } else if (width.value > 35 || height.value > 35) {
+  } else if (width.value > 3500 || height.value > 3500) {
     alert("Введите число до 35");
   } else {
-    a = Number(width.value);
-    b = Number(height.value);
+    a = Number(width.value / 1000);
+    b = Number(height.value / 1000);
     pl = (a * b).toFixed(2); //площадь фигуры
     per = ((a + b) * 2).toFixed(2); // периметр фигуры
     bl = ((a * b) / 0.36).toFixed(1); //всего блоков по 0.36m
@@ -64,7 +66,7 @@ centred.addEventListener("click", () => {
     razmB;
     razmC;
 
-    canvasDrawCentred(width.value, height.value, line.value / 10);
+    canvasDrawCentred(width.value / 1000, height.value / 1000, line.value / 10);
   }
 });
 
@@ -366,3 +368,22 @@ function littleBlockC(visota, shirina) {
   ctx.fillStyle = "#f8f8f8";
   ctx.fillRect(0, 0, clientWidth, clientHeight);
 }
+
+testButt.addEventListener("click", () => {
+  let w = width.value;
+  let h = height.value;
+
+  canvas = document.getElementById("canvas");
+  canvas.classList = "canv";
+  clientWidth = w / 100;
+  clientHeight = h / 10;
+  canvas.width = clientWidth;
+  canvas.height = clientHeight;
+
+  canvas.style.border = "black solid " + `${line}` + "px";
+
+  let ctx = canvas.getContext("2d");
+  ctx.fillStyle = "#f8f8f8";
+  ctx.strokeStyle = "black";
+  ctx.lineWidth = line;
+});
