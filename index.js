@@ -370,38 +370,124 @@ function littleBlockC(visota, shirina) {
 }
 
 testButt.addEventListener("click", () => {
-  let w = width.value;
-  let h = height.value;
+  document.querySelector(".newTest").innerHTML = "";
+  cssDraw();
+});
 
-  // canvas = document.getElementById("canvas");
-  // canvas.classList = "canv";
-  // clientWidth = w / 10;
-  // clientHeight = h / 10;
-  // canvas.width = clientWidth;
-  // canvas.height = clientHeight;
+function cssDraw() {
+  let allWidth = width.value / 601;
+  let allHeight = height.value / 601;
 
-  // canvas.style.border = "black solid " + `${line}` + "px";
+  //console.log(allWidth + " allWidth");
+  // console.log(allHeight + "allHeight");
 
-  // let ctx = canvas.getContext("2d");
-  // ctx.fillStyle = "#f8f8f8";
-  // ctx.strokeStyle = "black";
-  // ctx.lineWidth = line;
+  let seamsHorizont = Math.floor(allWidth);
+  let seamsVertical = Math.floor(allHeight);
+
+  //console.log(seamsHorizont + " seamsHorizont");
+  //console.log(seamsVertical + "seamsVertical");
+
+  let seamsWidth = seamsHorizont * line.value;
+  let seamsHeight = seamsVertical * line.value;
+
+  //console.log(seamsWidth + "seamsWidth");
+  //console.log(seamsHeight + " seamsHeight");
+
+  let blocksInHorizont = Math.floor(allWidth);
+  let blocksInVertical = Math.floor(allHeight);
+  let widthLastBlock = Number(
+    width.value - blocksInHorizont * 600 - seamsWidth
+  );
+  // Math.floor((width.value / 600 - Math.floor(allWidth)) * 600) - seamsWidth;
+
+  // widthLastBlock < 0
+  //   ? (widthLastBlock = widthLastBlock + 600)
+  //   : console.log("eeee");
+
+  // console.log(
+  //   "SHirina   " + Number(width.value - blocksInHorizont * 600 - seamsWidth)
+  // );
+
+  let heightLastBlock = Number(
+    height.value - blocksInVertical * 600 - seamsHeight
+  );
+
+  // Math.floor((height.value / 600 - Math.floor(allHeight)) * 600) -
+  // seamsHeight;
+
+  console.log(heightLastBlock + " height bottom block");
+  console.log(widthLastBlock + " width right block");
+
+  let w = Math.ceil(allWidth);
+  let h = Math.ceil(allHeight);
+  let smallWidth = widthLastBlock / 10;
+  let smallHeight = heightLastBlock / 10;
 
   let testDiv = document.querySelector(".newTest");
-
+  let table = document.createElement("div");
+  table.classList.add("table");
+  testDiv.append(table);
   for (i = 0; i < h; i++) {
     let newTr = document.createElement("tr");
     newTr.className = "newTr";
-    testDiv.append(newTr);
-
+    table.append(newTr);
+    if (i == h - 1) {
+      newTr.style.height = `${smallHeight + "px"}`;
+    }
     for (n = 0; n < w; n++) {
-      let newTd = document.createElement("td");
-      newTd.className = "newTr";
-      newTr.append(newTd);
+      if (n !== w - 1 && i !== h - 1) {
+        let newTd = document.createElement("td");
+        newTd.className = "newTd";
+        newTd.style.border = "black solid " + `${line.value / 2}` + "px";
+        newTr.append(newTd);
+      } else if (n == w - 1 && i == h - 1 && n > 0 && i > 0) {
+        let newTd = document.createElement("td");
+        newTd.style.border = "black solid " + `${line.value / 2}` + "px";
+        newTd.style.width = `${smallWidth + "px"}`;
+        newTd.style.height = `${smallHeight + "px"}`;
+        newTr.append(newTd);
+
+        newTd.classList.add("a");
+      } else if (n == w - 2 && i == h - 1) {
+        let newTd = document.createElement("td");
+        newTd.style.border = "black solid " + `${line.value / 2}` + "px";
+        newTd.style.width = `${smallWidth + "px"}`;
+        newTd.style.height = `${smallHeight + "px"}`;
+        newTr.append(newTd);
+        newTd.classList.add("b");
+      } else if (n == w - 1 && i == h - 2) {
+        let newTd = document.createElement("td");
+        newTd.style.border = "black solid " + `${line.value / 2}` + "px";
+        newTd.style.width = `${smallWidth + "px"}`;
+        newTd.style.height = `${smallHeight + "px"}`;
+        newTr.append(newTd);
+        newTd.classList.add("c");
+      } else {
+        let newTd = document.createElement("td");
+        newTd.className = "lastTd";
+        newTd.style.border = "black solid " + `${line.value / 2}` + "px";
+        newTd.style.width = `${smallWidth + "px"}`;
+        newTr.append(newTd);
+      }
     }
   }
 
-  // let newTd = document.createElement("td");
-  // newTd.className = "newTr";
-  // newTr.append(newTd);
+  // let aaa = (document.querySelector(".a").innerHTML = "a");
+  // let bbb = (document.querySelector(".b").innerHTML = "b");
+  // let ccc = (document.querySelector(".c").innerHTML = "c");
+
+  if (widthLastBlock <= 0 || heightLastBlock <= 0) {
+    let gg = document.querySelector(".lastTd");
+
+    gg.style.width = "60px";
+  }
+}
+
+reset.addEventListener("click", () => {
+  newF();
 });
+
+function newF() {
+  let clear = (document.querySelector(".newTest").innerHTML = "");
+  clear.innerHTML = "";
+}

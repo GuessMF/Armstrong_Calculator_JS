@@ -168,6 +168,9 @@ table {
 
 .newTd {
   border: black 1px solid;
+  width: 60px;
+  height: 60px;
+  background-color: #e8eeee;
 }
 .newTr {
   width: 60px;
@@ -178,4 +181,23 @@ table {
 
 .newTest {
   width: max-content;
+}
+
+.bottomTr {
+  width: 60px;
+  height: 30px;
+  background-color: #e8eeee;
+  border: black 1px solid;
+}
+
+.a {
+  background-color: red;
+}
+
+.b {
+  background-color: green;
+}
+
+.c {
+  background-color: blue;
 }
