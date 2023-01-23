@@ -386,36 +386,18 @@ function cssDraw() {
   let seamsHorizont = Math.floor(allWidth);
   let seamsVertical = Math.floor(allHeight);
 
-  //console.log(seamsHorizont + " seamsHorizont");
-  //console.log(seamsVertical + "seamsVertical");
-
   let seamsWidth = seamsHorizont * line.value;
   let seamsHeight = seamsVertical * line.value;
-
-  //console.log(seamsWidth + "seamsWidth");
-  //console.log(seamsHeight + " seamsHeight");
 
   let blocksInHorizont = Math.floor(allWidth);
   let blocksInVertical = Math.floor(allHeight);
   let widthLastBlock = Number(
     width.value - blocksInHorizont * 600 - seamsWidth
   );
-  // Math.floor((width.value / 600 - Math.floor(allWidth)) * 600) - seamsWidth;
-
-  // widthLastBlock < 0
-  //   ? (widthLastBlock = widthLastBlock + 600)
-  //   : console.log("eeee");
-
-  // console.log(
-  //   "SHirina   " + Number(width.value - blocksInHorizont * 600 - seamsWidth)
-  // );
 
   let heightLastBlock = Number(
     height.value - blocksInVertical * 600 - seamsHeight
   );
-
-  // Math.floor((height.value / 600 - Math.floor(allHeight)) * 600) -
-  // seamsHeight;
 
   console.log(heightLastBlock + " height bottom block");
   console.log(widthLastBlock + " width right block");
@@ -425,6 +407,9 @@ function cssDraw() {
 
   let smallWidth = widthLastBlock / 10;
   let smallHeight = heightLastBlock / 10;
+
+  console.log("smallWidth = " + smallWidth);
+  console.log("smallHeight = " + smallHeight);
 
   console.log("w= " + w);
   console.log("h= " + h);
@@ -447,74 +432,113 @@ function cssDraw() {
         newTd.className = "newTd";
         newTd.style.border = "black solid " + `${line.value / 2}` + "px";
         newTr.append(newTd);
-      } else if (n == w - 1 && i == h - 1 && n > 0 && i > 0) {
-        let newTd = document.createElement("td");
-        newTd.style.border = "black solid " + `${line.value / 2}` + "px";
-        newTd.style.width = `${smallWidth + "px"}`;
-        newTd.style.height = `${smallHeight + "px"}`;
-        newTd.classList.add("A");
+      } else if (
+        n == w - 1 &&
+        i == h - 1 &&
+        (smallWidth < 60 || smallHeight < 60)
+      ) {
+        smallBlockRoom(smallWidth, smallHeight, line.value / 2, newTr, "A");
         razmA.textContent = `${
           smallHeight * 10 + " mm x " + smallWidth * 10 + " mm"
         }`;
-
-        // lbA = document.querySelector(".divA");
-        // lbA.style.display = "inline";
-
-        // smallBlock2(smallWidth, smallHeight, "A");
         smallBlockParametrs(smallWidth, smallHeight, "A");
-
-        newTr.append(newTd);
       } else if (n == w - 2 && i == h - 1) {
-        let newTd = document.createElement("td");
-        newTd.style.border = "black solid " + `${line.value / 2}` + "px";
-        newTd.style.width = `${smallWidth + "px"}`;
-        newTd.style.height = `${smallHeight + "px"}`;
-        newTd.classList.add("B");
+        smallBlockRoom(smallWidth, smallHeight, line.value / 2, newTr, "B");
         razmB.textContent = `${smallHeight * 10 + " mm x 600 mm"}`;
-
         smallBlockParametrs(60, smallHeight, "B");
-
-        newTr.append(newTd);
       } else if (n == w - 1 && i == h - 2) {
-        let newTd = document.createElement("td");
-        newTd.style.border = "black solid " + `${line.value / 2}` + "px";
-        newTd.style.width = `${smallWidth + "px"}`;
-        newTd.style.height = `${smallHeight + "px"}`;
-        newTr.append(newTd);
-        newTd.classList.add("C");
+        smallBlockRoom(smallWidth, smallHeight, line.value / 2, newTr, "C");
         razmC.textContent = `${"600 mm x " + smallWidth * 10 + " mm"}`;
         smallBlockParametrs(smallWidth, 60, "C");
       } else {
-        let newTd = document.createElement("td");
-        newTd.className = "lastTd";
-        newTd.style.border = "black solid " + `${line.value / 2}` + "px";
-        newTd.style.width = `${smallWidth + "px"}`;
-        newTr.append(newTd);
+        // standartBlock(smallWidth, line.value / 2);
       }
     }
   }
 
-  // let aaa = (document.querySelector(".a").innerHTML = "a");
-  // let bbb = (document.querySelector(".b").innerHTML = "b");
-  // let ccc = (document.querySelector(".c").innerHTML = "c");
-
-  if (widthLastBlock <= 0 || heightLastBlock <= 0) {
-    let gg = document.querySelector(".lastTd");
-    gg.style.width = "60px";
+  function smallBlockRoom(smallWidth, smallHeight, line, newTr, letter) {
+    if (smallWidth > 0 || smallHeight > 0) {
+      let newTd = document.createElement("td");
+      newTd.style.border = "black solid " + `${line}` + "px";
+      newTd.style.width = `${smallWidth + "px"}`;
+      newTd.style.height = `${smallHeight + "px"}`;
+      newTd.classList.add(`${letter}`);
+      // razmA.textContent = `${
+      //   smallHeight * 10 + " mm x " + smallWidth * 10 + " mm"
+      // }`;
+      newTr.append(newTd);
+    }
   }
+
+  function smallBlockParametrs(smallWidth, smallHeight, letter) {
+    let testLittle = document.querySelector(`.testLittle${letter}`);
+    testLittle.textContent = "";
+    let littleBlock = document.createElement("td");
+    littleBlock.style.width = `${smallWidth + "px"}`;
+    littleBlock.style.height = `${smallHeight + "px"}`;
+    littleBlock.classList.add(`${letter}`);
+    littleBlock.style.border = "black solid 1px";
+    testLittle.append(littleBlock);
+  }
+
+  // function standartBlock(smallWidth, line) {
+  //   let newTd = document.createElement("td");
+  //   newTr = document.querySelector(".newTr");
+  //   newTd.className = "lastTd";
+  //   newTd.style.border = "black solid " + `${line}` + "px";
+  //   newTd.style.width = `${smallWidth + "px"}`;
+  //   newTr.append(newTd);
+  // }
 }
 
-function smallBlockParametrs(smallWidth, smallHeight, letter) {
-  let testLittle = document.querySelector(`.testLittle${letter}`);
-  testLittle.textContent = "";
-  let littleBlock = document.createElement("td");
-  littleBlock.style.width = `${smallWidth + "px"}`;
-  littleBlock.style.height = `${smallHeight + "px"}`;
-  littleBlock.classList.add(`${letter}`);
-  littleBlock.style.border = "black solid 1px";
-  testLittle.append(littleBlock);
-}
+// function dva(line, smallWidth, smallHeight, letter) {
+//   let newTd = document.createElement("td");
+//   newTr = document.querySelector(".newTr");
+//   newTd.style.border = "black solid " + `${line}` + "px";
+//   newTd.style.width = `${smallWidth + "px"}`;
+//   newTd.style.height = `${smallHeight + "px"}`;
+//   newTd.classList.add(`${letter}`);
+//   //razmC.textContent = `${"600 mm x " + smallWidth * 10 + " mm"}`;
+//   newTr.append(newTd);
+// }
 
+// let newTd = document.createElement("td");
+// newTd.style.border = "black solid " + `${line.value / 2}` + "px";
+// newTd.style.width = `${smallWidth + "px"}`;
+// newTd.style.height = `${smallHeight + "px"}`;
+// newTd.classList.add("A");
+// razmA.textContent = `${
+//   smallHeight * 10 + " mm x " + smallWidth * 10 + " mm"
+// }`;
+
+//raz(line.value / 2, smallWidth, smallHeight, "B");
+// let newTd = document.createElement("td");
+// newTd.style.border = "black solid " + `${line.value / 2}` + "px";
+// newTd.style.width = `${smallWidth + "px"}`;
+// newTd.style.height = `${smallHeight + "px"}`;
+// newTd.classList.add("B");
+//
+// newTr.append(newTd);
+
+// raz(line.value / 2, smallWidth, smallHeight, "C");
+// let newTd = document.createElement("td");
+// newTd.style.border = "black solid " + `${line.value / 2}` + "px";
+// newTd.style.width = `${smallWidth + "px"}`;
+// newTd.style.height = `${smallHeight + "px"}`;
+// newTd.classList.add("C");
+//
+// newTr.append(newTd);
+
+// let newTd = document.createElement("td");
+// newTr = document.querySelector(".newTr");
+// newTd.className = "lastTd";
+// newTd.style.border = "black solid " + `${line}` + "px";
+// newTd.style.width = `${smallWidth + "px"}`;
+// newTr.append(newTd);
+// if (widthLastBlock <= 0 || heightLastBlock <= 0) {
+//   let gg = document.querySelector(".lastTd");
+//   gg.style.width = "60px";
+// }
 reset.addEventListener("click", () => {
   newF();
   testOne();
