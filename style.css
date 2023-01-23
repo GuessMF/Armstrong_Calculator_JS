@@ -190,14 +190,14 @@ table {
   border: black 1px solid;
 }
 
-.a {
-  background-color: red;
+.A {
+  background-color: rgb(236, 178, 178);
 }
 
-.b {
-  background-color: green;
+.B {
+  background-color: rgb(209, 244, 209);
 }
 
-.c {
-  background-color: blue;
+.C {
+  background-color: rgb(197, 197, 246);
 }

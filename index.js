@@ -374,12 +374,14 @@ testButt.addEventListener("click", () => {
   cssDraw();
 });
 
-function cssDraw() {
-  let allWidth = width.value / 601;
-  let allHeight = height.value / 601;
+//newTd.style.border = "black solid " + `${line.value / 2}` + "px";
 
-  //console.log(allWidth + " allWidth");
-  // console.log(allHeight + "allHeight");
+function cssDraw() {
+  let allWidth = width.value / 600.3;
+  let allHeight = height.value / 600.3;
+
+  console.log(allWidth + " allWidth");
+  console.log(allHeight + " allHeight");
 
   let seamsHorizont = Math.floor(allWidth);
   let seamsVertical = Math.floor(allHeight);
@@ -420,13 +422,18 @@ function cssDraw() {
 
   let w = Math.ceil(allWidth);
   let h = Math.ceil(allHeight);
+
   let smallWidth = widthLastBlock / 10;
   let smallHeight = heightLastBlock / 10;
+
+  console.log("w= " + w);
+  console.log("h= " + h);
 
   let testDiv = document.querySelector(".newTest");
   let table = document.createElement("div");
   table.classList.add("table");
   testDiv.append(table);
+
   for (i = 0; i < h; i++) {
     let newTr = document.createElement("tr");
     newTr.className = "newTr";
@@ -445,23 +452,38 @@ function cssDraw() {
         newTd.style.border = "black solid " + `${line.value / 2}` + "px";
         newTd.style.width = `${smallWidth + "px"}`;
         newTd.style.height = `${smallHeight + "px"}`;
-        newTr.append(newTd);
+        newTd.classList.add("A");
+        razmA.textContent = `${
+          smallHeight * 10 + " mm x " + smallWidth * 10 + " mm"
+        }`;
 
-        newTd.classList.add("a");
+        // lbA = document.querySelector(".divA");
+        // lbA.style.display = "inline";
+
+        // smallBlock2(smallWidth, smallHeight, "A");
+        smallBlockParametrs(smallWidth, smallHeight, "A");
+
+        newTr.append(newTd);
       } else if (n == w - 2 && i == h - 1) {
         let newTd = document.createElement("td");
         newTd.style.border = "black solid " + `${line.value / 2}` + "px";
         newTd.style.width = `${smallWidth + "px"}`;
         newTd.style.height = `${smallHeight + "px"}`;
+        newTd.classList.add("B");
+        razmB.textContent = `${smallHeight * 10 + " mm x 600 mm"}`;
+
+        smallBlockParametrs(60, smallHeight, "B");
+
         newTr.append(newTd);
-        newTd.classList.add("b");
       } else if (n == w - 1 && i == h - 2) {
         let newTd = document.createElement("td");
         newTd.style.border = "black solid " + `${line.value / 2}` + "px";
         newTd.style.width = `${smallWidth + "px"}`;
         newTd.style.height = `${smallHeight + "px"}`;
         newTr.append(newTd);
-        newTd.classList.add("c");
+        newTd.classList.add("C");
+        razmC.textContent = `${"600 mm x " + smallWidth * 10 + " mm"}`;
+        smallBlockParametrs(smallWidth, 60, "C");
       } else {
         let newTd = document.createElement("td");
         newTd.className = "lastTd";
@@ -478,13 +500,24 @@ function cssDraw() {
 
   if (widthLastBlock <= 0 || heightLastBlock <= 0) {
     let gg = document.querySelector(".lastTd");
-
     gg.style.width = "60px";
   }
 }
 
+function smallBlockParametrs(smallWidth, smallHeight, letter) {
+  let testLittle = document.querySelector(`.testLittle${letter}`);
+  testLittle.textContent = "";
+  let littleBlock = document.createElement("td");
+  littleBlock.style.width = `${smallWidth + "px"}`;
+  littleBlock.style.height = `${smallHeight + "px"}`;
+  littleBlock.classList.add(`${letter}`);
+  littleBlock.style.border = "black solid 1px";
+  testLittle.append(littleBlock);
+}
+
 reset.addEventListener("click", () => {
   newF();
+  testOne();
 });
 
 function newF() {
