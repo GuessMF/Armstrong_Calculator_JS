@@ -371,48 +371,189 @@ function littleBlockC(visota, shirina) {
 
 testButt.addEventListener("click", () => {
   document.querySelector(".newTest").innerHTML = "";
-  cssDraw();
+  cssDraw2();
 });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+function cssDraw2() {
+  const LINEWIDTH = Number(line.value);
+  const WIDTH = Math.ceil(width.value / (600 + LINEWIDTH)); // всего блоков по ширине
+  const HEIGHT = Math.ceil(height.value / (600 + LINEWIDTH));
+  const FULLBLOCKSWIDTH = Math.floor(width.value / (600 + LINEWIDTH)); //целые блоки по ширине
+  const FULLBLOCKSHEIGHT = Math.floor(height.value / (600 + LINEWIDTH));
+
+  let bottomBlocksHeight;
+  let rightBlocksWidth;
+
+  Number(width.value - FULLBLOCKSWIDTH * (600 + LINEWIDTH)) / 10 == 0
+    ? (rightBlocksWidth = 60)
+    : (rightBlocksWidth =
+        Number(width.value - FULLBLOCKSWIDTH * (600 + LINEWIDTH)) / 10);
+
+  Number(height.value - FULLBLOCKSHEIGHT * (600 + LINEWIDTH)) / 10 == 0
+    ? (bottomBlocksHeight = 60)
+    : (bottomBlocksHeight =
+        Number(height.value - FULLBLOCKSHEIGHT * (600 + LINEWIDTH)) / 10);
+
+  let testDiv = document.querySelector(".newTest");
+  let table = document.createElement("div");
+  table.classList.add("table");
+  testDiv.append(table);
+
+  for (i = 0; i < HEIGHT; i++) {
+    let newTr = document.createElement("tr");
+    i == HEIGHT - 1
+      ? (newTr.style.height = `${bottomBlocksHeight + "px"}`)
+      : (newTr.style.height = "60px");
+    newTr.className = "newTr";
+    table.append(newTr);
+
+    for (n = 0; n < WIDTH; n++) {
+      if (
+        i == HEIGHT - 1 &&
+        n == WIDTH - 1 &&
+        HEIGHT - 1 !== 0 &&
+        WIDTH - 1 !== 0
+      ) {
+        // makeTd("A", rightBlocksWidth, bottomBlocksHeight, LINEWIDTH);
+        let newTd = document.createElement("td");
+        newTd.className = "A";
+        newTd.style.border = "black solid " + `${LINEWIDTH / 2}` + "px";
+        newTd.style.width = `${rightBlocksWidth + "px"}`;
+        newTd.style.height = `${bottomBlocksHeight + "px"}`;
+        newTr.append(newTd);
+        smallBlockParametrs(rightBlocksWidth, bottomBlocksHeight, "A");
+        razmA.textContent = `${
+          bottomBlocksHeight * 10 + " mm x " + rightBlocksWidth * 10 + " mm"
+        }`;
+        //
+        //
+      } else if (n == WIDTH - 1 && WIDTH - 1 !== 0) {
+        let newTd = document.createElement("td");
+        newTd.className = "B";
+        newTd.style.border = "black solid " + `${LINEWIDTH / 2}` + "px";
+        newTd.style.width = `${rightBlocksWidth + "px"}`;
+        newTr.append(newTd);
+        smallBlockParametrs(rightBlocksWidth, 60, "B");
+        razmB.textContent = `${"600 mm x " + rightBlocksWidth * 10 + " mm"}`;
+        //
+        //
+      } else if (i == HEIGHT - 1 && HEIGHT - 1 !== 0) {
+        let newTd = document.createElement("td");
+        newTd.className = "C";
+        newTd.style.border = "black solid " + `${LINEWIDTH / 2}` + "px";
+        newTd.style.height = `${bottomBlocksHeight + "px"}`;
+        newTr.append(newTd);
+        smallBlockParametrs(60, bottomBlocksHeight, "C");
+        razmC.textContent = `${bottomBlocksHeight * 10 + " mm x 600 mm"}`;
+        //
+        //
+      } else {
+        let newTd = document.createElement("td");
+        newTd.className = "newTd";
+        newTd.style.border = "black solid " + `${LINEWIDTH / 2}` + "px";
+        newTr.append(newTd);
+      }
+    }
+  }
+}
+
+//
+//
+//
+//
+
+function smallBlockParametrs(smallWidth, smallHeight, letter) {
+  let testLittle = document.querySelector(`.testLittle${letter}`);
+  testLittle.textContent = "";
+  let littleBlock = document.createElement("td");
+  littleBlock.style.width = `${smallWidth + "px"}`;
+  littleBlock.style.height = `${smallHeight + "px"}`;
+  littleBlock.classList.add(`${letter}`);
+  littleBlock.style.border = "black solid 1px";
+  testLittle.append(littleBlock);
+}
+
+// function makeTd(name, blockWidth, blockHeight, LINEWIDTH) {
+//   let newTr = document.querySelector(".newTr");
+//   let newTd = document.createElement("td");
+//   newTd.className = name;
+//   newTd.style.border = "black solid " + `${LINEWIDTH / 2}` + "px";
+//   newTd.style.width = `${blockWidth + "px"}`;
+//   newTd.style.height = `${blockHeight + "px"}`;
+//   newTr.append(newTd);
+// }
 
 //newTd.style.border = "black solid " + `${line.value / 2}` + "px";
 
 function cssDraw() {
-  let allWidth = width.value / 600.3;
-  let allHeight = height.value / 600.3;
+  let lineWidth = Number(line.value);
+  let widthRoom = Number(width.value);
+  let heightRoom = Number(height.value);
 
-  console.log(allWidth + " allWidth");
-  console.log(allHeight + " allHeight");
+  let allWidth = widthRoom / (600 + lineWidth);
+  let allHeight = heightRoom / (600 + lineWidth);
+
+  console.log(typeof widthRoom);
+  console.log(lineWidth);
 
   let seamsHorizont = Math.floor(allWidth);
   let seamsVertical = Math.floor(allHeight);
 
-  let seamsWidth = seamsHorizont * line.value;
-  let seamsHeight = seamsVertical * line.value;
+  let seamsWidth = seamsHorizont * lineWidth;
+  let seamsHeight = seamsVertical * lineWidth;
 
   let blocksInHorizont = Math.floor(allWidth);
   let blocksInVertical = Math.floor(allHeight);
-  let widthLastBlock = Number(
-    width.value - blocksInHorizont * 600 - seamsWidth
-  );
+
+  let widthLastBlock = Number(widthRoom - blocksInHorizont * 600 - seamsWidth);
 
   let heightLastBlock = Number(
-    height.value - blocksInVertical * 600 - seamsHeight
+    heightRoom - blocksInVertical * 600 - seamsHeight
   );
 
-  console.log(heightLastBlock + " height bottom block");
-  console.log(widthLastBlock + " width right block");
+  // let fullBlocksWidht = width.value;
+  // let shirinaPoslBloka = Number(width.value);
 
   let w = Math.ceil(allWidth);
   let h = Math.ceil(allHeight);
+  console.log("Width Value = " + widthRoom);
+  console.log("Height Value = " + heightRoom);
+
+  console.log("allWidht = " + allWidth);
+  console.log("allHeight = " + allHeight);
+
+  console.log("w = " + w);
+  console.log("h = " + h);
 
   let smallWidth = widthLastBlock / 10;
   let smallHeight = heightLastBlock / 10;
-
+  console.log("Width Last Block = " + widthLastBlock);
+  console.log("Height Las Block = " + heightLastBlock);
   console.log("smallWidth = " + smallWidth);
   console.log("smallHeight = " + smallHeight);
-
-  console.log("w= " + w);
-  console.log("h= " + h);
 
   let testDiv = document.querySelector(".newTest");
   let table = document.createElement("div");
@@ -430,28 +571,28 @@ function cssDraw() {
       if (n !== w - 1 && i !== h - 1) {
         let newTd = document.createElement("td");
         newTd.className = "newTd";
-        newTd.style.border = "black solid " + `${line.value / 2}` + "px";
+        newTd.style.border = "black solid " + `${lineWidth / 2}` + "px";
         newTr.append(newTd);
       } else if (
         n == w - 1 &&
         i == h - 1 &&
         (smallWidth < 60 || smallHeight < 60)
       ) {
-        smallBlockRoom(smallWidth, smallHeight, line.value / 2, newTr, "A");
+        smallBlockRoom(smallWidth, smallHeight, lineWidth / 2, newTr, "A");
         razmA.textContent = `${
           smallHeight * 10 + " mm x " + smallWidth * 10 + " mm"
         }`;
         smallBlockParametrs(smallWidth, smallHeight, "A");
       } else if (n == w - 2 && i == h - 1) {
-        smallBlockRoom(smallWidth, smallHeight, line.value / 2, newTr, "B");
+        smallBlockRoom(smallWidth, smallHeight, lineWidth / 2, newTr, "B");
         razmB.textContent = `${smallHeight * 10 + " mm x 600 mm"}`;
         smallBlockParametrs(60, smallHeight, "B");
       } else if (n == w - 1 && i == h - 2) {
-        smallBlockRoom(smallWidth, smallHeight, line.value / 2, newTr, "C");
+        smallBlockRoom(smallWidth, smallHeight, lineWidth / 2, newTr, "C");
         razmC.textContent = `${"600 mm x " + smallWidth * 10 + " mm"}`;
         smallBlockParametrs(smallWidth, 60, "C");
       } else {
-        // standartBlock(smallWidth, line.value / 2);
+        //standartBlock(smallWidth, lineWidth / 2);
       }
     }
   }
@@ -491,54 +632,6 @@ function cssDraw() {
   // }
 }
 
-// function dva(line, smallWidth, smallHeight, letter) {
-//   let newTd = document.createElement("td");
-//   newTr = document.querySelector(".newTr");
-//   newTd.style.border = "black solid " + `${line}` + "px";
-//   newTd.style.width = `${smallWidth + "px"}`;
-//   newTd.style.height = `${smallHeight + "px"}`;
-//   newTd.classList.add(`${letter}`);
-//   //razmC.textContent = `${"600 mm x " + smallWidth * 10 + " mm"}`;
-//   newTr.append(newTd);
-// }
-
-// let newTd = document.createElement("td");
-// newTd.style.border = "black solid " + `${line.value / 2}` + "px";
-// newTd.style.width = `${smallWidth + "px"}`;
-// newTd.style.height = `${smallHeight + "px"}`;
-// newTd.classList.add("A");
-// razmA.textContent = `${
-//   smallHeight * 10 + " mm x " + smallWidth * 10 + " mm"
-// }`;
-
-//raz(line.value / 2, smallWidth, smallHeight, "B");
-// let newTd = document.createElement("td");
-// newTd.style.border = "black solid " + `${line.value / 2}` + "px";
-// newTd.style.width = `${smallWidth + "px"}`;
-// newTd.style.height = `${smallHeight + "px"}`;
-// newTd.classList.add("B");
-//
-// newTr.append(newTd);
-
-// raz(line.value / 2, smallWidth, smallHeight, "C");
-// let newTd = document.createElement("td");
-// newTd.style.border = "black solid " + `${line.value / 2}` + "px";
-// newTd.style.width = `${smallWidth + "px"}`;
-// newTd.style.height = `${smallHeight + "px"}`;
-// newTd.classList.add("C");
-//
-// newTr.append(newTd);
-
-// let newTd = document.createElement("td");
-// newTr = document.querySelector(".newTr");
-// newTd.className = "lastTd";
-// newTd.style.border = "black solid " + `${line}` + "px";
-// newTd.style.width = `${smallWidth + "px"}`;
-// newTr.append(newTd);
-// if (widthLastBlock <= 0 || heightLastBlock <= 0) {
-//   let gg = document.querySelector(".lastTd");
-//   gg.style.width = "60px";
-// }
 reset.addEventListener("click", () => {
   newF();
   testOne();

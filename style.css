@@ -190,14 +190,32 @@ table {
   border: black 1px solid;
 }
 
+.lastRightTd {
+  width: 60px;
+  height: 60px;
+  background-color: aquamarine;
+}
+.lastBottomTr {
+  width: 60px;
+  height: 60px;
+  background-color: antiquewhite;
+}
+
 .A {
   background-color: rgb(236, 178, 178);
+  width: 60px;
+  height: 60px;
 }
 
 .B {
+  width: 60px;
+  height: 60px;
   background-color: rgb(209, 244, 209);
 }
 
 .C {
   background-color: rgb(197, 197, 246);
+  width: 60px;
+  height: 60px;
+  /* background-color: antiquewhite; */
 }
