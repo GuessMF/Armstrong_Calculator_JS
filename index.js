@@ -29,8 +29,6 @@ calculate.addEventListener("click", () => {
   } else {
     a = Number(width.value / 1000);
     b = Number(height.value / 1000);
-    console.log(a);
-    console.log(width.value);
     pl = (a * b).toFixed(2); //площадь фигуры
     per = ((a + b) * 2).toFixed(2); // периметр фигуры
     bl = ((a * b) / 0.36).toFixed(1); //всего блоков по 0.36m
@@ -439,7 +437,6 @@ function cssDraw() {
     table.append(newTr);
 
     for (n = 0; n < WIDTH; n++) {
-      console.log(n + " N");
       if (
         i == HEIGHT - 1 &&
         n == WIDTH - 1 &&
@@ -450,6 +447,7 @@ function cssDraw() {
       ) {
         let newTd = document.createElement("td");
         newTd.className = "A";
+
         newTd.style.border = "black solid " + `${LINEWIDTH / 2}` + "px";
         newTd.style.width = `${rightBlocksWidth + "px"}`;
         newTd.style.height = `${bottomBlocksHeight + "px"}`;
@@ -459,6 +457,7 @@ function cssDraw() {
         razmA.textContent = `${
           bottomBlocksHeight * 10 + " mm x " + rightBlocksWidth * 10 + " mm"
         }`;
+        console.log("TEST");
       } else if (n == WIDTH - 1 && WIDTH - 1 !== 0 && rightBlocksWidth < 60) {
         let newTd = document.createElement("td");
         newTd.className = "B";
@@ -468,7 +467,6 @@ function cssDraw() {
         smallBlockParametrs(rightBlocksWidth, 60, "B");
         razmB.textContent = "";
         razmB.textContent = `${"600 mm x " + rightBlocksWidth * 10 + " mm"}`;
-        console.log(n + "n");
       } else if (
         i == HEIGHT - 1 &&
         HEIGHT - 1 !== 0 &&
@@ -491,6 +489,7 @@ function cssDraw() {
     }
   }
 }
+
 //
 //
 //
@@ -517,11 +516,10 @@ function smallBlockParametrs(smallWidth, smallHeight, letter) {
 
 reset.addEventListener("click", () => {
   document.querySelector(".newTest").innerHTML = "";
-  // parametrsClear("A");
-  // parametrsClear("B");
-  // parametrsClear("C");
+  parametrsClear("A");
+  parametrsClear("B");
+  parametrsClear("C");
   cssDrawCentred();
-  console.log("fff");
 });
 
 function cssDrawCentred() {
@@ -548,7 +546,6 @@ function cssDrawCentred() {
           height.value - FULLBLOCKSHEIGHT * (600 + LINEWIDTH) - LINEWIDTH
         ) / 10);
 
-  console.log(rightBlocksWidth * 10);
   let testDiv = document.querySelector(".newTest");
   let table = document.createElement("div");
   table.classList.add("table");
