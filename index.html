@@ -8,14 +8,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap"
       rel="stylesheet"
     />
     <title>Armstrong Calculator</title>
   </head>
   <body>
+    <h1 class="title">Canvas armstrong calculator</h1>
     <div class="containerMain">
-      <div class="header">
+      <div class="inputs">
+        <p>Ширина комнаты (мм)</p>
         <input
           id="width"
           type="text"
@@ -23,6 +25,7 @@
           value="1500"
         />
         <br />
+        <p>Высота комнаты (мм)</p>
         <input
           id="height"
           type="text"
@@ -30,6 +33,7 @@
           value="1500"
         />
         <br />
+        <p>Ширина шва между блоками (мм)</p>
         <input id="line" type="text" placeholder="Ширина шва 1-5мм" value="1" />
         <br />
         <div>
@@ -39,9 +43,6 @@
         <br />
         <button id="centred">Отцентровать</button>
         <br />
-        <button id="testButt">Test Button</button>
-        <br />
-        <button id="reset">Res</button>
       </div>
       <div class="cost">
         <table class="testTab">
@@ -102,8 +103,6 @@
       </div>
     </div>
     <canvas id="canvas"></canvas>
-    <div class="newTest"></div>
-
     <div class="footer">
       <p class="reserved">© Sergey Pankov. 2023 All rigths reserved</p>
       <a
